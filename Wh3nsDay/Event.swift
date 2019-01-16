@@ -14,14 +14,12 @@ public class Event{
     private var ifAlert : Bool
     private var startDate : Date
     private var endDate : Date
-    private var DOW : Int
     
     init(n:String, s : Date,e : Date,a : Bool){
         name = n
         startDate = s
         endDate = e
         ifAlert = a
-        DOW = Calendar.current.component(.weekday, from: startDate)
     }
     
     public func getStart() -> Date {

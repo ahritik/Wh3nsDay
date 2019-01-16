@@ -8,7 +8,6 @@ target 'Wh3nsDay' do
   # Pods for Wh3nsDay
   pod 'Realm'
   pod 'RealmSwift'
-  pod 'CoreDataHelper'
   pod 'FSCalendar'
   pod 'IGListKit'
   pod 'SwiftyJSON'
