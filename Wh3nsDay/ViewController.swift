@@ -8,6 +8,7 @@
 //
 
 import UIKit
+import CoreData
 
 class ViewController: UIViewController, UITextFieldDelegate {
     private var eventNameInput = ""
@@ -19,7 +20,6 @@ class ViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var eventNameLabel: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         // Do any additional setup after loading the view, typically from a nib.
         
     }
@@ -38,8 +38,11 @@ class ViewController: UIViewController, UITextFieldDelegate {
         let endTimeInt = Int(endTimePast1970)
         print(startTimeInt)
         print(endTimeInt)
-        let e = Event(n:eventNameInput, s:startDatePickerInput.date, e:endDatePickerInput.date, a:alerts)
+        
+        addEvent()
+        
     }
+    
     @IBAction func switchSwitched(_ sender: UISwitch) {
         if (sender.isOn == true){
             alerts = true
@@ -53,6 +56,32 @@ class ViewController: UIViewController, UITextFieldDelegate {
         print(eventNameInput)
         self.view.endEditing(true)
     }
+    
+    func addEvent(){
+        
+        //Creates an accessor
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let context = appDelegate.persistentContainer.viewContext
+        
+        //Accessor creates an Entity
+        let entity = NSEntityDescription.entity(forEntityName: "Entity", in: context)
+        let newEvent = NSManagedObject(entity: entity!, insertInto: context)
+        
+        //adds each of the required parts to the enity creates
+        newEvent.setValue(eventNameInput, forKey: "name")
+        newEvent.setValue(startDatePickerInput.date, forKey: "startDate")
+        newEvent.setValue(startDatePickerInput.date, forKey: "endDate")
+        newEvent.setValue(alerts, forKey: "ifAlert")
+        
+        //Saves the added event to the Core Data Database
+        do {
+            try context.save()
+        } catch {
+            print("Failed saving")
+        }
+        
+    }
+    
     func mustHaveNameError(){
             self.eventNameLabel.text = "Must Include Event Name"
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1){
