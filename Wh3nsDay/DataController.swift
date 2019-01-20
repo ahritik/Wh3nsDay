@@ -18,7 +18,7 @@ class DataController: NSObject {
         persistentContainer.loadPersistentStores() { (description, error) in
             if let error = error {
                 fatalError("Failed to load Core Data stack: \(error)")
-            } 
+            }
             completionClosure()
         }
         
