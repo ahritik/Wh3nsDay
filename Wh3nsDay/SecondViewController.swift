@@ -12,6 +12,7 @@ import UIKit
 
 class SecondViewController: UIViewController {
     //private var button = _: UIButton
+
    // @IBOutlet weak var first: UIButton?
    // @IBOutlet weak var second: UIButton?
     private var currentDate = Date()
@@ -21,7 +22,10 @@ class SecondViewController: UIViewController {
     private var monthLabel = UILabel()
     private var yearLabel = UILabel()
     private var numberOfDaysInMonth = [Int]()
-    override func viewDidLoad() {
+
+    @IBOutlet weak var first: UIButton?
+    @IBOutlet weak var second: UIButton?
+        override func viewDidLoad() {
         super.viewDidLoad()
         numberOfDaysInMonth.append(31)
         numberOfDaysInMonth.append(28)
