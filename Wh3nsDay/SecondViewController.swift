@@ -23,8 +23,8 @@ class SecondViewController: UIViewController {
     private var yearLabel = UILabel()
     private var numberOfDaysInMonth = [Int]()
 
-    @IBOutlet weak var first: UIButton?
-    @IBOutlet weak var second: UIButton?
+    //@IBOutlet weak var first: UIButton?
+    //@IBOutlet weak var second: UIButton?
         override func viewDidLoad() {
         super.viewDidLoad()
         numberOfDaysInMonth.append(31)
