@@ -17,7 +17,9 @@ class SecondViewController: UIViewController {
     private var currentDate = Date()
     private var currentMonthString = ""
     private var currentMonthInt = 0
-    private var gpLabel = UILabel()
+    private var year = 2019
+    private var monthLabel = UILabel()
+    private var yearLabel = UILabel()
     private var numberOfDaysInMonth = [Int]()
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,7 +36,8 @@ class SecondViewController: UIViewController {
         numberOfDaysInMonth.append(30)
         numberOfDaysInMonth.append(31)
         currentMonthString = getMonthFromDate(date: currentDate)
-        setMonthTitle()
+        setMonthLabel()
+        //setYearLabel()
         // Do any additional setup after loading the view, typically from a nib.
         //  let calendarObject = NSCalendar.autoupdatingCurrent
         setup(dayInt: 1, offset: 57*0, numberOfDays: numberOfDaysInMonth[currentMonthInt-1])
@@ -43,20 +46,38 @@ class SecondViewController: UIViewController {
     
     @IBAction func nextMonth(_ sender: Any) {
         currentMonthInt = currentMonthInt + 1
-        setStringFromInt()
-        gpLabel.text = currentMonthString
+        
         view.subviews.forEach({ $0.removeFromSuperview() })
+        if (currentMonthInt == 13){
+            year = year + 1
+            currentMonthInt = 1
+        }
+        setStringFromInt()
+        monthLabel.text = currentMonthString
+        if(currentMonthInt == 2 && year % 4 == 0){
+            setup(dayInt: 1, offset: 57*0, numberOfDays: 29)
+        }
         setup(dayInt: 1, offset: 57*0, numberOfDays: numberOfDaysInMonth[currentMonthInt-1])
-        setMonthTitle()
+        setMonthLabel()
+        print(year)
+        print(currentMonthInt)
+        print(currentMonthString)
         
     }
     @IBAction func lastMonth(_ sender: Any) {
         currentMonthInt = currentMonthInt - 1
-        setStringFromInt()
-        gpLabel.text = currentMonthString
         view.subviews.forEach({ $0.removeFromSuperview() })
+        if (currentMonthInt == 0){
+            year = year - 1
+            currentMonthInt = 12
+        }
+        if(currentMonthInt == 2 && year % 4 == 0){
+            setup(dayInt: 1, offset: 57*0, numberOfDays: 29)
+        }
+        setStringFromInt()
+        monthLabel.text = currentMonthString
         setup(dayInt: 1, offset: 57*0, numberOfDays: numberOfDaysInMonth[currentMonthInt-1])
-        setMonthTitle()
+        setMonthLabel()
     }
     
     
@@ -104,35 +125,62 @@ class SecondViewController: UIViewController {
         }
         return(currentMonthString)
     }
-    func setMonthTitle(){
-        
-        
+    func setMonthLabel(){
         // x = left, y = top, width = width of lebel, height = height of lebel
-        gpLabel.frame = CGRect(x: 207, y: 50, width: 360, height: 100)
-        gpLabel.center.x = self.view.center.x
-        gpLabel.text = currentMonthString
-        gpLabel.font = UIFont(name: "HelveticaNeue-Bold", size: 38)
-        gpLabel.textColor = UIColor.blue
+        monthLabel.frame = CGRect(x: 207, y: 50, width: 200, height: 50)
+        monthLabel.center.x = self.view.center.x
+        monthLabel.text = currentMonthString
+        monthLabel.font = UIFont(name: "HelveticaNeue-Bold", size: 38)
+        monthLabel.textColor = UIColor.blue
+        monthLabel.textAlignment = NSTextAlignment.center
+        monthLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
+        //monthLabel.highlightedTextColor = UIColor.green
+        monthLabel.isHighlighted = false
+        monthLabel.isUserInteractionEnabled = true
+        monthLabel.isEnabled = true
+        monthLabel.numberOfLines = 0
+        monthLabel.adjustsFontSizeToFitWidth = true
+        monthLabel.baselineAdjustment = UIBaselineAdjustment.alignCenters
         
-        // RGB: Max number is 255, alpha is opacity
-        //gpLabel.backgroundColor = UIColor.red
-       // gpLabel.shadowColor = UIColor.red
-       // gpLabel.shadowOffset = CGSize(width: 2, height: 2)
-        gpLabel.textAlignment = NSTextAlignment.center
-        gpLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
-        //gpLabel.highlightedTextColor = UIColor.green
-        gpLabel.isHighlighted = false
-        gpLabel.isUserInteractionEnabled = true
-        gpLabel.isEnabled = true
-        gpLabel.numberOfLines = 0
-        gpLabel.adjustsFontSizeToFitWidth = true
-        gpLabel.baselineAdjustment = UIBaselineAdjustment.alignCenters
-        
-        self.view.addSubview(gpLabel)
+        self.view.addSubview(monthLabel)
     }
-    
+    func setYearLabel(){
+        yearLabel.frame = CGRect(x: 207, y: 500, width: 100, height: 30)
+        yearLabel.center.x = self.view.center.x
+        yearLabel.text = String(year)
+        yearLabel.font = UIFont(name: "HelveticaNeue-Bold", size: 38)
+        yearLabel.textColor = UIColor.blue
+        yearLabel.textAlignment = NSTextAlignment.center
+        yearLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
+        //yearLabel.highlightedTextColor = UIColor.green
+        yearLabel.isHighlighted = false
+        yearLabel.isUserInteractionEnabled = true
+        yearLabel.isEnabled = true
+        yearLabel.numberOfLines = 0
+        yearLabel.adjustsFontSizeToFitWidth = true
+        yearLabel.baselineAdjustment = UIBaselineAdjustment.alignCenters
+    }
+    func createAddEventButton(){
+        let addEventBtn = UIButton(type: .custom)
+        addEventBtn.frame = .init(x: 207, y: 800, width: 100, height: 60)
+        addEventBtn.setTitle("Add Event", for: .normal)
+        addEventBtn.backgroundColor = UIColor.blue
+        addEventBtn.center.x = self.view.center.x
+        //addEventBtn
+        addEventBtn.layer.cornerRadius = 15
+        addEventBtn.layer.borderColor = UIColor.black.cgColor
+        addEventBtn.layer.borderWidth = 1
+        addEventBtn.layer.masksToBounds = true
+        addEventBtn.addTarget(self, action: #selector(addEventSwitch(e: )), for: .touchUpInside)
+        self.view.addSubview(addEventBtn)
+    }
+    @objc func addEventSwitch(e: Int){
+        let homeView = self.storyboard?.instantiateViewController(withIdentifier: "addEventView") as! ViewController
+        self.present(homeView, animated: false, completion: nil)
+    }
     func setup(dayInt: Int, offset: Int, numberOfDays: Int){ //RECURSIVE METHOD
         if dayInt > numberOfDays {
+            createAddEventButton()
             return
         }
         let offsetX = offset % 399
@@ -149,13 +197,13 @@ class SecondViewController: UIViewController {
         // you must call this for rounded corner
         btn.layer.masksToBounds = true
         self.view.addSubview(btn)
-        print(offsetX, offsetY, 0%400)
+      //  print(offsetX, offsetY, 0%400)
         addTarget(btn: btn, dayInt: dayInt)
         setup(dayInt: dayInt + 1, offset: offset + 57, numberOfDays: numberOfDays        )
     }
     
     @objc func addTarget(btn: UIButton, dayInt: Int) {
-        print(btn.titleLabel)
+       // print(btn.titleLabel)
         if dayInt == 1 {
             btn.addTarget(self, action: #selector(pressed1(dayInt: )), for: .touchUpInside)
         }else if dayInt == 2 {
