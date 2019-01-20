@@ -18,6 +18,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var startDatePickerInput: UIDatePicker!
     @IBOutlet weak var textField: UITextField!
     @IBOutlet weak var eventNameLabel: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -58,7 +59,6 @@ class ViewController: UIViewController, UITextFieldDelegate {
     }
     
     func addEvent(){
-        
         //Creates an accessor
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = appDelegate.persistentContainer.viewContext
@@ -72,6 +72,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
         newEvent.setValue(startDatePickerInput.date, forKey: "startDate")
         newEvent.setValue(startDatePickerInput.date, forKey: "endDate")
         newEvent.setValue(alerts, forKey: "ifAlert")
+        
+        print()
         
         //Saves the added event to the Core Data Database
         do {

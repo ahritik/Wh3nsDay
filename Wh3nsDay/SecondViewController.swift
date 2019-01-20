@@ -13,6 +13,7 @@ class SecondViewController: UIViewController {
     //private var button = _: UIButton
     @IBOutlet weak var first: UIButton?
     @IBOutlet weak var second: UIButton?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
