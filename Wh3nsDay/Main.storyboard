@@ -137,9 +137,23 @@
                         </accessibility>
                         <gestureRecognizers/>
                         <viewLayoutGuide key="safeArea" id="tPF-pu-H6q"/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="Zj8-J0-e48" appends="YES" id="BTO-Sa-5ou"/>
+                            <outletCollection property="gestureRecognizers" destination="DdC-Hb-La7" appends="YES" id="SyS-Hc-fKX"/>
+                        </connections>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zuR-fa-meK" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <swipeGestureRecognizer direction="right" id="Zj8-J0-e48">
+                    <connections>
+                        <action selector="lastMonth:" destination="xhh-5W-vBk" id="Nwd-Hf-QVW"/>
+                    </connections>
+                </swipeGestureRecognizer>
+                <swipeGestureRecognizer direction="left" id="DdC-Hb-La7">
+                    <connections>
+                        <action selector="nextMonth:" destination="xhh-5W-vBk" id="hfd-gJ-xX4"/>
+                    </connections>
+                </swipeGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1261" y="-331"/>
         </scene>
