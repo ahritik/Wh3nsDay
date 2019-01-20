@@ -30,8 +30,10 @@ class ViewController: UIViewController, UITextFieldDelegate {
             mustHaveNameError()
             return
         }
+        let homeView = self.storyboard?.instantiateViewController(withIdentifier: "CalView") as! SecondViewController
+        self.present(homeView, animated: false, completion: nil)
         print(alerts)
-        print(startDatePickerInput.date)
+        //print(startDatePickerInput.)
         let startTimePast1970 = startDatePickerInput.date.timeIntervalSince1970
         let endTimePast1970 = endDatePickerInput.date.timeIntervalSince1970
         //convert to Integer

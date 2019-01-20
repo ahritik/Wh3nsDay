@@ -13,7 +13,7 @@
         <!--Add Event View-->
         <scene sceneID="hNz-n2-bh7">
             <objects>
-                <viewController title="Add Event View" id="9pv-A4-QxB" customClass="ViewController" customModule="Wh3nsDay" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="addEventView" title="Add Event View" useStoryboardIdentifierAsRestorationIdentifier="YES" id="9pv-A4-QxB" customClass="ViewController" customModule="Wh3nsDay" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="tsR-hK-woN">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -111,8 +111,8 @@
         <!--Cal-->
         <scene sceneID="sma-BN-xvd">
             <objects>
-                <viewController title="Cal" id="xhh-5W-vBk" customClass="SecondViewController" customModule="Wh3nsDay" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="vuT-pF-goN" customClass="FirstViewController" customModule="Wh3nsDay">
+                <viewController storyboardIdentifier="CalView" title="Cal" useStoryboardIdentifierAsRestorationIdentifier="YES" id="xhh-5W-vBk" customClass="SecondViewController" customModule="Wh3nsDay" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" restorationIdentifier="CalView" id="vuT-pF-goN">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -132,6 +132,9 @@
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="0.58620061528497414" green="0.11765676203977603" blue="0.11256337849488894" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <accessibility key="accessibilityConfiguration" identifier="CalView" label="CalView">
+                            <bool key="isElement" value="YES"/>
+                        </accessibility>
                         <gestureRecognizers/>
                         <viewLayoutGuide key="safeArea" id="tPF-pu-H6q"/>
                     </view>
