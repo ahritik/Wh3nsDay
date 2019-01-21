@@ -67,7 +67,8 @@ class ThirdViewController: UIViewController {
     }
     
     func getInOrder(events:Array<[NSManagedObject]>) -> Array<[NSManagedObject]> {
-        <#function body#>
+        //try this
+        return events
     }
     
     
