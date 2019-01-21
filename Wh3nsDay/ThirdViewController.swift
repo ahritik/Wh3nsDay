@@ -18,10 +18,7 @@ class ThirdViewController: UIViewController {
         
     }
     
-    func getEventDay(n: String) -> Array<NSManagedObject> {
-        
-        var eventDay : Array<[NSManagedObject]> = []
-        
+    func getEventDay(n: String) {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Entity")
         fetchRequest.predicate = NSPredicate(format: "date = %@", n)
         
@@ -32,7 +29,7 @@ class ThirdViewController: UIViewController {
         do {
             let result = try context.fetch(fetchRequest)
             for data in result as! [NSManagedObject] {
-                eventDay.append(data.value(forKey: "name"))
+                print(data.value(forKey: "name") as! String)
             }
             
         } catch {
