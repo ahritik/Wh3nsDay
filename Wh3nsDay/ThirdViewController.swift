@@ -23,6 +23,7 @@ class ThirdViewController: UIViewController {
         var eventDay : Array<[NSManagedObject]> = []
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Entity")
         fetchRequest.predicate = NSPredicate(format: "date = %@", n)
+    
         
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = appDelegate.persistentContainer.viewContext
@@ -66,6 +67,5 @@ class ThirdViewController: UIViewController {
             
         }
     }
-    
     
 }

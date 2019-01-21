@@ -6,8 +6,6 @@ target 'Wh3nsDay' do
   use_frameworks!
 
   # Pods for Wh3nsDay
-  pod 'Realm'
-  pod 'RealmSwift'
   pod 'FSCalendar'
   pod 'IGListKit'
   pod 'SwiftyJSON'
