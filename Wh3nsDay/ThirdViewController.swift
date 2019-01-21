@@ -8,6 +8,7 @@
 
 import UIKit
 import Foundation
+import CoreData
 
 class ThirdViewController: UIViewController {
     
@@ -17,14 +18,49 @@ class ThirdViewController: UIViewController {
         
     }
     
-    func getEvent() {
-        let moc = …
-        let employeesFetch = NSFetchRequest(entityName: "Entity")
+    func getEventDay(n: String) {
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Entity")
+        fetchRequest.predicate = NSPredicate(format: "date = %@", n)
         
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let context = appDelegate.persistentContainer.viewContext
+
+        fetchRequest.returnsObjectsAsFaults = false
         do {
-            let fetchedEmployees = try moc.executeFetchRequest(employeesFetch) as! [EmployeeMO]
+            let result = try context.fetch(fetchRequest)
+            for data in result as! [NSManagedObject] {
+                print(data.value(forKey: "name") as! String)
+            }
+            
         } catch {
-            fatalError("Failed to fetch Events: \(error)")
+            
+            print("Failed")
+        }
+    }
+    
+    func deleteEvent(name:String){
+        func deleteRecords() -> Void {
+            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+            let context = appDelegate.persistentContainer.viewContext
+            let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Entity")
+            fetchRequest.predicate = NSPredicate(format: "date = %@", name)
+
+            let result = try? context.fetch(fetchRequest)
+            let resultData = result as! [Entity]
+            
+            for object in resultData {
+                context.delete(object)
+            }
+            
+            do {
+                try context.save()
+                print("saved!")
+            } catch let error as NSError  {
+                print("Could not save \(error), \(error.userInfo)")
+            } catch {
+                
+            }
+            
         }
     }
     

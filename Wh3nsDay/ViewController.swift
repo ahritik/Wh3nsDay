@@ -42,7 +42,34 @@ class ViewController: UIViewController, UITextFieldDelegate {
 //        print(startTimeInt)
 //        print(endTimeInt)
         
-        addEvent()
+        addEvent(n: eventNameInput, s: startDatePickerInput.date, e: endDatePickerInput.date, a: alerts)
+        
+        
+    }
+    
+    func addEvent(n: String, s: Date, e: Date, a: Bool){
+        //Creates an accessor
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let context = appDelegate.persistentContainer.viewContext
+        
+        //Accessor creates an Entity
+        let entity = NSEntityDescription.entity(forEntityName: "Entity", in: context)
+        let newEvent = NSManagedObject(entity: entity!, insertInto: context)
+        
+        //adds each of the required parts to the enity creates
+        newEvent.setValue(n, forKey: "name")
+        newEvent.setValue(s, forKey: "startDate")
+        newEvent.setValue(e, forKey: "endDate")
+        newEvent.setValue(a, forKey: "ifAlert")
+        
+        print()
+        
+        //Saves the added event to the Core Data Database
+        do {
+            try context.save()
+        } catch {
+            print("Failed saving")
+        }
         
     }
     
@@ -58,32 +85,6 @@ class ViewController: UIViewController, UITextFieldDelegate {
         eventNameInput = textField.text ?? ""
         print(eventNameInput)
         self.view.endEditing(true)
-    }
-    
-    func addEvent(){
-        //Creates an accessor
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        let context = appDelegate.persistentContainer.viewContext
-        
-        //Accessor creates an Entity
-        let entity = NSEntityDescription.entity(forEntityName: "Entity", in: context)
-        let newEvent = NSManagedObject(entity: entity!, insertInto: context)
-        
-        //adds each of the required parts to the enity creates
-        newEvent.setValue(eventNameInput, forKey: "name")
-        newEvent.setValue(startDatePickerInput.date, forKey: "startDate")
-        newEvent.setValue(startDatePickerInput.date, forKey: "endDate")
-        newEvent.setValue(alerts, forKey: "ifAlert")
-        
-        print()
-        
-        //Saves the added event to the Core Data Database
-        do {
-            try context.save()
-        } catch {
-            print("Failed saving")
-        }
-        
     }
     
     func mustHaveNameError(){
