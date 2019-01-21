@@ -22,6 +22,8 @@ class ThirdViewController: UIViewController {
         
         var eventDay : Array<[NSManagedObject]> = []
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Entity")
+        
+        //filters the events for the day
         fetchRequest.predicate = NSPredicate(format: "date = %@", n)
         
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
@@ -42,7 +44,6 @@ class ThirdViewController: UIViewController {
     }
     
     func deleteEvent(name:String){
-        func deleteRecords() -> Void {
             let appDelegate = UIApplication.shared.delegate as! AppDelegate
             let context = appDelegate.persistentContainer.viewContext
             let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Entity")
@@ -63,8 +64,10 @@ class ThirdViewController: UIViewController {
             } catch {
                 
             }
-            
-        }
+    }
+    
+    func getInOrder(events:Array<[NSManagedObject]>) -> Array<[NSManagedObject]> {
+        <#function body#>
     }
     
     
