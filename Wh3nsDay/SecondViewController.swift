@@ -339,12 +339,13 @@ class SecondViewController: UIViewController {
         //test
         print(dayInt)
         let homeView = self.storyboard?.instantiateViewController(withIdentifier: "eventListView") as! ThirdViewController
-        let s = String(year) + "-" + adjMonthInt(dayInt: dayInt) + "-" + String(dayInt)
+        let s = String(year) + "-" + adjInt(int: currentMonthInt + 1) + "-" + adjInt(int: dayInt)
         homeView.setCurrentDateInString(d: s)
+        print(s)
         self.present(homeView, animated: false, completion: nil)
     }
-    func adjMonthInt(dayInt: Int) -> String{
-        var stringInt = String(dayInt)
+    func adjInt(int: Int) -> String{
+        var stringInt = String(int)
         if(stringInt.count == 1){
             stringInt = "0" + stringInt
         }
