@@ -13,23 +13,25 @@ import CoreData
 class ThirdViewController: UIViewController {
     private var currentDateInString = ""
     private var events = Array<[NSManagedObject]>()
-    private var events2 = [Int]()
+    private var events2 = Array<[NSManagedObject]>()
     private var scrollNumber = 0
     private var scrollCount = 0
     private var endI = 0
     func addup(e: Int){
         var i = 0
         while i < e{
-            events2.append(i)
+           // events2.append(i)
             i = i + 1
         }
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         print(currentDateInString)
-        addup(e: 21)
+        //addup(e: 21)
        // scrollNumber = Int(events2 / 12)
-       // events = getEventDay(n: currentDateInString)
+       events2 = getEventDay(n: currentDateInString)
+        filter()
         //print(events[0])
         // Do any additional setup after loading the view, typically from a nib.
         if(events2.count > 11){
@@ -38,6 +40,11 @@ class ThirdViewController: UIViewController {
         setup(startI: 0)
         // setup(startI: 12, endI: 23)
     }
+    
+    func filter(){
+        
+    }
+    
     @IBAction func swipeUp(_ sender: Any) {
         scrollCount = scrollCount + 1
         print(scrollCount * 12)
@@ -59,9 +66,11 @@ class ThirdViewController: UIViewController {
         }
         setup(startI: 12 * scrollCount)
     }
+    
     public func setCurrentDateInString(d: String){
         currentDateInString = d
     }
+    
     func setup(startI: Int){
         endI = (events2.count) - (events2.count - (scrollCount * 12)) - 2
         print("________________" + String(endI))
@@ -77,11 +86,13 @@ class ThirdViewController: UIViewController {
         if(div < 2){
             div = 2
         }
+        
         let yDifference = (Int(UIScreen.main.bounds.height) - 250) / div
         var i = endI
         if (endI > events2.count - 1){
             i = events2.count - 1
         }
+        
         while i >= startI {
             let eventLabel = UILabel()
             eventLabel.frame = CGRect(x: 207, y: 150
@@ -89,7 +100,7 @@ class ThirdViewController: UIViewController {
             eventLabel.center.x = self.view.center.x
             print(i)
             print(events2.count)
-            eventLabel.text = String(events2[i])
+            eventLabel.text = String(events2[i][0].value(forKey: "name") as! String)
             eventLabel.font = UIFont(name: "HelveticaNeue-Bold", size: 38)
             eventLabel.textColor = UIColor.blue
             eventLabel.textAlignment = NSTextAlignment.center
@@ -106,6 +117,7 @@ class ThirdViewController: UIViewController {
             i = i - 1
         }
     }
+    
     func createDeleteButton(i: Int, yDifference: Int){
         let btn = UIButton(type: .custom)
         btn.frame = .init(x: 370, y: 150
@@ -122,6 +134,7 @@ class ThirdViewController: UIViewController {
         //  print(offsetX, offsetY, 0%400)
         addTarget(btn: btn, i: i)
     }
+    
     func addTarget(btn: UIButton, i: Int){
         if(i == 0){
             btn.addTarget(self, action: #selector(delete0(delete: )), for: .touchUpInside)
@@ -149,6 +162,7 @@ class ThirdViewController: UIViewController {
             btn.addTarget(self, action: #selector(delete11(delete: )), for: .touchUpInside)
         }
     }
+    
     @objc func delete0(delete: Int){
         events2.remove(at: scrollCount * 12 + 0 )
         print(events2.count)
@@ -169,61 +183,73 @@ class ThirdViewController: UIViewController {
         }
             setup(startI: 12 * scrollCount)
     }
+    
     @objc func delete1(delete: Int){
         events2.remove(at: scrollCount * 12 + 1 )
         setup(startI: scrollCount * 12)
         print("del1")
     }
+    
     @objc func delete2(delete: Int){
         events2.remove(at: scrollCount * 12 + 2 )
         setup(startI: scrollCount * 12)
         print("del2")
     }
+    
     @objc func delete3(delete: Int){
         events2.remove(at: scrollCount * 12 + 3 )
         setup(startI: scrollCount * 12)
         print("del3")
     }
+    
     @objc func delete4(delete: Int){
         events2.remove(at: scrollCount * 12 + 4 )
         setup(startI: scrollCount * 12)
         print("del4")
     }
+    
     @objc func delete5(delete: Int){
         events2.remove(at: scrollCount * 12 + 5 )
         setup(startI: scrollCount * 12)
         print("del5")
     }
+    
     @objc func delete6(delete: Int){
         events2.remove(at: scrollCount * 12 + 6 )
         setup(startI: scrollCount * 12)
         print("del6")
     }
+    
     @objc func delete7(delete: Int){
         events2.remove(at: scrollCount * 12 + 7 )
         setup(startI: scrollCount * 12)
         print("del7")
     }
+    
     @objc func delete8(delete: Int){
         events2.remove(at: scrollCount * 12 + 8 )
         setup(startI: scrollCount * 12)
         print("del8")
     }
+    
     @objc func delete9(delete: Int){
         events2.remove(at: scrollCount * 12 + 9 )
         setup(startI: scrollCount * 12)
         print("del9")
     }
+    
     @objc func delete10(delete: Int){
         events2.remove(at: scrollCount * 12 + 10 )
         setup(startI: scrollCount * 12)
         print("del10")
+        
     }
     @objc func delete11(delete: Int){
         events2.remove(at: scrollCount * 12 + 11 )
         setup(startI: scrollCount * 12)
         print("del11")
     }
+    
     func getEventDay(n: String) -> Array<[NSManagedObject]> {
         
         var eventDay : Array<[NSManagedObject]> = []
@@ -231,7 +257,7 @@ class ThirdViewController: UIViewController {
         
         //filters the events for the day
         
-        fetchRequest.predicate = NSPredicate(format: "date = %@", n)
+        //fetchRequest.predicate = NSPredicate(format: "date = %@", DateFormatter.date(from: n + "T00:00:00+0000")! as CVarArg)
         print("end")
         let context = AppDelegate.getContext()
         print("end2")
@@ -248,7 +274,7 @@ class ThirdViewController: UIViewController {
             let result = try context.fetch(fetchRequest)
             print("end6")
             for data in result as! [NSManagedObject] {
-                eventDay.append(data.value(forKey: "name") as! [NSManagedObject])
+                eventDay.append([data])
                 print("end7")
             }
             
@@ -260,10 +286,17 @@ class ThirdViewController: UIViewController {
     }
     
     func deleteAllEventsInDate(name:String){
+        
+            //make the date fromatted
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy'-'MM'-'dd'T'HH':'mm':'ssZZZ"
+            //dateFormatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
+        
             //Creates a retchRequest which has access to all events in the database
             let context = AppDelegate.getContext()
             let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Entity")
-            fetchRequest.predicate = NSPredicate(format: "date = %@", name)
+            let date = dateFormatter.date(from: name+"T00:00:00+0000")
+            //fetchRequest.predicate = NSPredicate(format: "%K == %@", #keyPath(Entity.startDate), date! as CVarArg)
         
             let result = try? context.fetch(fetchRequest)
             let resultData = result as! [Entity]

@@ -14,7 +14,7 @@ class DataController: NSObject {
     var managedObjectContext: NSManagedObjectContext?
     
     init(completionClosure: @escaping () -> ()) {
-        let persistentContainer = NSPersistentContainer(name: "DataModel")
+        let persistentContainer = NSPersistentContainer(name: "Wh3nsDay")
         persistentContainer.loadPersistentStores() { (description, error) in
             if let error = error {
                 fatalError("Failed to load Core Data stack: \(error)")
