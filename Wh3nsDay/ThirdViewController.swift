@@ -25,6 +25,7 @@ class ThirdViewController: UIViewController {
         
         //filters the events for the day
         fetchRequest.predicate = NSPredicate(format: "date = %@", n)
+    
         
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = appDelegate.persistentContainer.viewContext
@@ -70,6 +71,5 @@ class ThirdViewController: UIViewController {
         //try this
         return events
     }
-    
     
 }
