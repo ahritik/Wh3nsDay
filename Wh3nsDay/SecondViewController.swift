@@ -306,6 +306,7 @@ class SecondViewController: UIViewController {
     @objc func pressed30(dayInt: Int){openDay(dayInt: 30)}
     @objc func pressed31(dayInt: Int){openDay(dayInt: 31)}
     func openDay(dayInt: Int){
+        //test
         print(dayInt)
         //let vc = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "EventList") as? EventListViewController
         // self.navigationController?.pushViewController(vc!, animated: true)
