@@ -6,6 +6,10 @@
 //  Copyright © 2018 Dane Potter. All rights reserved.
 //
 
+/*
+NOT BEING USED
+ */
+
 import Foundation
 
 public class Day{
@@ -33,6 +37,7 @@ public class Day{
             }
         }
     }
+    
     func remove(ev :Event){
         if(size == 0){
         }else{

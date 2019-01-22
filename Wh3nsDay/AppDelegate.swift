@@ -22,6 +22,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         return true
     }
+    
+    static func getContext() -> NSManagedObjectContext{
+        //Creates an accessor
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let context = appDelegate.persistentContainer.viewContext
+        
+        return context
+    }
 
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -60,7 +68,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }()
     
     lazy var persistentContainer: NSPersistentContainer = {
-        
+        //Creates a file fo the Core Data File
         let container = NSPersistentContainer(name: "Wh3nsDay")
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if let error = error {

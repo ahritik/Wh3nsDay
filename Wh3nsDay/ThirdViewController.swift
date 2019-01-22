@@ -25,12 +25,14 @@ class ThirdViewController: UIViewController {
         
         //filters the events for the day
         fetchRequest.predicate = NSPredicate(format: "date = %@", n)
-    
+        let context = AppDelegate.getContext()
         
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        let context = appDelegate.persistentContainer.viewContext
-
+        //sort the objects
+        let sort = NSSortDescriptor(key: "startDate", ascending: true)
+        fetchRequest.sortDescriptors = [sort]
         fetchRequest.returnsObjectsAsFaults = false
+        
+        //Add each event one by one that fits the filter in order
         do {
             let result = try context.fetch(fetchRequest)
             for data in result as! [NSManagedObject] {
@@ -38,38 +40,34 @@ class ThirdViewController: UIViewController {
             }
             
         } catch {
-            
             print("Failed")
         }
         return eventDay
     }
     
     func deleteEvent(name:String){
-            let appDelegate = UIApplication.shared.delegate as! AppDelegate
-            let context = appDelegate.persistentContainer.viewContext
+            //Creates a retchRequest which has access to all events in the database
+            let context = AppDelegate.getContext()
             let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Entity")
             fetchRequest.predicate = NSPredicate(format: "date = %@", name)
-
+        
             let result = try? context.fetch(fetchRequest)
             let resultData = result as! [Entity]
             
             for object in resultData {
                 context.delete(object)
             }
-            
+        
+            //Save the channges made to the file
             do {
                 try context.save()
                 print("saved!")
             } catch let error as NSError  {
                 print("Could not save \(error), \(error.userInfo)")
             } catch {
-                
+                print("Wack error is \(error)")
             }
     }
-    
-    func getInOrder(events:Array<[NSManagedObject]>) -> Array<[NSManagedObject]> {
-        //try this
-        return events
-    }
+
     
 }
