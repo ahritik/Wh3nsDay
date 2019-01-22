@@ -30,6 +30,10 @@ class ViewController: UIViewController, UITextFieldDelegate {
             mustHaveNameError()
             return
         }
+        
+        //Adds the event entered
+        addEvent(n: eventNameInput, s: startDatePickerInput.date, e: endDatePickerInput.date, a: alerts)
+        
         let homeView = self.storyboard?.instantiateViewController(withIdentifier: "CalView") as! SecondViewController
         self.present(homeView, animated: false, completion: nil)
         //print(alerts)
@@ -42,15 +46,12 @@ class ViewController: UIViewController, UITextFieldDelegate {
 //        print(startTimeInt)
 //        print(endTimeInt)
         
-        addEvent(n: eventNameInput, s: startDatePickerInput.date, e: endDatePickerInput.date, a: alerts)
-        
         
     }
     
     func addEvent(n: String, s: Date, e: Date, a: Bool){
-        //Creates an accessor
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        let context = appDelegate.persistentContainer.viewContext
+        
+        let context = AppDelegate.getContext()
         
         //Accessor creates an Entity
         let entity = NSEntityDescription.entity(forEntityName: "Entity", in: context)
@@ -61,8 +62,6 @@ class ViewController: UIViewController, UITextFieldDelegate {
         newEvent.setValue(s, forKey: "startDate")
         newEvent.setValue(e, forKey: "endDate")
         newEvent.setValue(a, forKey: "ifAlert")
-        
-        print()
         
         //Saves the added event to the Core Data Database
         do {

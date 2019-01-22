@@ -6,6 +6,10 @@
 //  Copyright © 2018 Dane Potter. All rights reserved.
 //
 
+/*
+ NOT BEING USED
+ */
+
 import Foundation
 
 public class Event{
