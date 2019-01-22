@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 
 
+
 class SecondViewController: UIViewController {
     //private var button = _: UIButton
     
@@ -333,11 +334,21 @@ class SecondViewController: UIViewController {
     @objc func pressed29(dayInt: Int){openDay(dayInt: 29)}
     @objc func pressed30(dayInt: Int){openDay(dayInt: 30)}
     @objc func pressed31(dayInt: Int){openDay(dayInt: 31)}
+   
     func openDay(dayInt: Int){
         //test
         print(dayInt)
-        //let vc = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "EventList") as? EventListViewController
-        // self.navigationController?.pushViewController(vc!, animated: true)
+        let homeView = self.storyboard?.instantiateViewController(withIdentifier: "eventListView") as! ThirdViewController
+        let s = String(year) + "-" + adjMonthInt(dayInt: dayInt) + "-" + String(dayInt)
+        homeView.setCurrentDateInString(d: s)
+        self.present(homeView, animated: false, completion: nil)
+    }
+    func adjMonthInt(dayInt: Int) -> String{
+        var stringInt = String(dayInt)
+        if(stringInt.count == 1){
+            stringInt = "0" + stringInt
+        }
+        return stringInt
     }
     
     func setStringFromInt(){

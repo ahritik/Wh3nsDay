@@ -144,7 +144,7 @@
         <!--EventList-->
         <scene sceneID="2mN-zO-Z5D">
             <objects>
-                <viewController title="EventList" id="cNT-I4-9qV" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="eventListView" title="EventList" useStoryboardIdentifierAsRestorationIdentifier="YES" id="cNT-I4-9qV" customClass="ThirdViewController" customModule="Wh3nsDay" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="bI9-XX-PaR">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

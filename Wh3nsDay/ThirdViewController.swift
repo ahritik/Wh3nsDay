@@ -11,12 +11,18 @@ import Foundation
 import CoreData
 
 class ThirdViewController: UIViewController {
-    public var currentDateInString = ""
+    private var currentDateInString = ""
+    private var events = Array<[NSManagedObject]>()
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        print(currentDateInString)
+        events = getEventDay(n: currentDateInString)
+        print(events[0])
         // Do any additional setup after loading the view, typically from a nib.
         
+    }
+    public func setCurrentDateInString(d: String){
+        currentDateInString = d
     }
     
     func getEventDay(n: String) -> Array<[NSManagedObject]> {
@@ -46,7 +52,7 @@ class ThirdViewController: UIViewController {
         return eventDay
     }
     
-    func deleteEvent(name:String){
+    func deleteAllEventsInDate(name:String){
             //Creates a retchRequest which has access to all events in the database
             let context = AppDelegate.getContext()
             let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Entity")
