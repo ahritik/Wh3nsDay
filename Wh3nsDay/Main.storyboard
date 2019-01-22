@@ -149,10 +149,25 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93890100590000003" green="0.87479958160000004" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <gestureRecognizers/>
                         <viewLayoutGuide key="safeArea" id="NBn-ah-Gm7"/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="seX-Mj-O6K" appends="YES" id="uE1-K4-TJv"/>
+                            <outletCollection property="gestureRecognizers" destination="KvZ-Qt-FVQ" appends="YES" id="pHx-r1-56y"/>
+                        </connections>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="khm-gg-uOj" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <swipeGestureRecognizer direction="up" id="seX-Mj-O6K">
+                    <connections>
+                        <action selector="swipeUp:" destination="cNT-I4-9qV" id="HCw-Sr-wVi"/>
+                    </connections>
+                </swipeGestureRecognizer>
+                <swipeGestureRecognizer direction="down" id="KvZ-Qt-FVQ">
+                    <connections>
+                        <action selector="swipeDown:" destination="cNT-I4-9qV" id="Uex-aP-YAc"/>
+                    </connections>
+                </swipeGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1884" y="-331"/>
         </scene>
