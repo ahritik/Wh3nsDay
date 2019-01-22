@@ -11,7 +11,7 @@ import Foundation
 import CoreData
 
 class ThirdViewController: UIViewController {
-    
+    public var currentDateInString = ""
     override func viewDidLoad() {
         super.viewDidLoad()
         

@@ -12,8 +12,6 @@ import UIKit
 
 class SecondViewController: UIViewController {
     //private var button = _: UIButton
-    @IBOutlet weak var first: UIButton?
-    @IBOutlet weak var second: UIButton?
     
 
    // @IBOutlet weak var first: UIButton?
@@ -23,8 +21,8 @@ class SecondViewController: UIViewController {
     private var currentMonthInt = 0
     private var year = 2019
     private var monthLabel = UILabel()
-    private var yearLabel = UILabel()
     private var numberOfDaysInMonth = [Int]()
+    private var modList = [Int]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,10 +40,11 @@ class SecondViewController: UIViewController {
         numberOfDaysInMonth.append(31)
         currentMonthString = getMonthFromDate(date: currentDate)
         setMonthLabel()
-        //setYearLabel()
+        setYearLabel()
         // Do any additional setup after loading the view, typically from a nib.
         //  let calendarObject = NSCalendar.autoupdatingCurrent
-        setup(dayInt: 1, offset: 57*0, numberOfDays: numberOfDaysInMonth[currentMonthInt-1])
+        leapYearTestandSetup()
+        setup(dayInt: 1, offset: offsetCalculator(), numberOfDays: numberOfDaysInMonth[currentMonthInt])
         
     }
     
@@ -53,35 +52,40 @@ class SecondViewController: UIViewController {
         currentMonthInt = currentMonthInt + 1
         
         view.subviews.forEach({ $0.removeFromSuperview() })
-        if (currentMonthInt == 13){
+        if (currentMonthInt == 12){
             year = year + 1
-            currentMonthInt = 1
+            currentMonthInt = 0
         }
         setStringFromInt()
         monthLabel.text = currentMonthString
-        if(currentMonthInt == 2 && year % 4 == 0){
-            setup(dayInt: 1, offset: 57*0, numberOfDays: 29)
-        }
-        setup(dayInt: 1, offset: 57*0, numberOfDays: numberOfDaysInMonth[currentMonthInt-1])
+        leapYearTestandSetup()
+        setup(dayInt: 1, offset: offsetCalculator(), numberOfDays: numberOfDaysInMonth[currentMonthInt])
+        modList[currentMonthInt] = offsetCalculator()
+        
         setMonthLabel()
         print(year)
         print(currentMonthInt)
         print(currentMonthString)
         
     }
+    func offsetCalculator() -> Int{
+        return (57 * (modList[currentMonthInt] % 7) + (year - 2018) % 7)
+    }
     @IBAction func lastMonth(_ sender: Any) {
         currentMonthInt = currentMonthInt - 1
         view.subviews.forEach({ $0.removeFromSuperview() })
-        if (currentMonthInt == 0){
+        if (currentMonthInt == -1){
             year = year - 1
-            currentMonthInt = 12
+            currentMonthInt = 11
         }
         if(currentMonthInt == 2 && year % 4 == 0){
             setup(dayInt: 1, offset: 57*0, numberOfDays: 29)
         }
         setStringFromInt()
         monthLabel.text = currentMonthString
-        setup(dayInt: 1, offset: 57*0, numberOfDays: numberOfDaysInMonth[currentMonthInt-1])
+        leapYearTestandSetup()
+        setup(dayInt: 1, offset: offsetCalculator(), numberOfDays: numberOfDaysInMonth[currentMonthInt])
+        modList[currentMonthInt] = offsetCalculator()
         setMonthLabel()
     }
     
@@ -92,40 +96,40 @@ class SecondViewController: UIViewController {
         dateFormatter.dateFormat = "LLLL"
         let currentMonthString = dateFormatter.string(from: now)
         if(currentMonthString == "January"){
-            currentMonthInt = 1
+            currentMonthInt = 0
             print(1)
         }else if(currentMonthString == "February"){
-            currentMonthInt = 2
+            currentMonthInt = 1
             print(2)
         }else if(currentMonthString == "March"){
-            currentMonthInt = 3
+            currentMonthInt = 2
             print(currentMonthInt)
         }else if(currentMonthString == "April"){
-            currentMonthInt = 4
+            currentMonthInt = 3
             print(currentMonthInt)
         }else if(currentMonthString == "May"){
-            currentMonthInt = 5
+            currentMonthInt = 4
             print(currentMonthInt)
         }else if(currentMonthString == "June"){
-            currentMonthInt = 6
+            currentMonthInt = 5
             print(currentMonthInt)
         }else if(currentMonthString == "July"){
-            currentMonthInt = 7
+            currentMonthInt = 6
             print(currentMonthInt)
         }else if(currentMonthString == "August"){
-            currentMonthInt = 8
+            currentMonthInt = 7
             print(currentMonthInt)
         }else if(currentMonthString == "September"){
-            currentMonthInt = 9
+            currentMonthInt = 8
             print(currentMonthInt)
         }else if(currentMonthString == "October"){
-            currentMonthInt = 10
+            currentMonthInt = 9
             print(currentMonthInt)
         }else if(currentMonthString == "November"){
-            currentMonthInt = 11
+            currentMonthInt = 10
             print(currentMonthInt)
         }else if(currentMonthString == "December"){
-            currentMonthInt = 12
+            currentMonthInt = 11
             print(currentMonthInt)
         }
         return(currentMonthString)
@@ -150,7 +154,8 @@ class SecondViewController: UIViewController {
         self.view.addSubview(monthLabel)
     }
     func setYearLabel(){
-        yearLabel.frame = CGRect(x: 207, y: 500, width: 100, height: 30)
+        let yearLabel = UILabel()
+        yearLabel.frame = CGRect(x: 207, y: 100, width: 100, height: 30)
         yearLabel.center.x = self.view.center.x
         yearLabel.text = String(year)
         yearLabel.font = UIFont(name: "HelveticaNeue-Bold", size: 38)
@@ -164,6 +169,27 @@ class SecondViewController: UIViewController {
         yearLabel.numberOfLines = 0
         yearLabel.adjustsFontSizeToFitWidth = true
         yearLabel.baselineAdjustment = UIBaselineAdjustment.alignCenters
+        self.view.addSubview(yearLabel)
+    }
+    func setDayLabel(){
+        let dayLabel = UILabel()
+        dayLabel.frame = CGRect(x: 207, y: 200, width: 500, height: 30)
+        dayLabel.center.x = self.view.center.x
+        let space = String("     ")
+        dayLabel.text = ("S" + space + "M" + space + "T" + space + "W" + space + "T" + space + "F" + space + "S")
+        dayLabel.font = UIFont(name: "HelveticaNeue-Bold", size: 26)
+        dayLabel.textColor = UIColor.blue
+        dayLabel.textAlignment = NSTextAlignment.center
+        dayLabel.center.x = dayLabel.center.x - 2
+        dayLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
+        //dayLabel.highlightedTextColor = UIColor.green
+        dayLabel.isHighlighted = false
+        dayLabel.isUserInteractionEnabled = true
+        dayLabel.isEnabled = true
+        dayLabel.numberOfLines = 0
+        dayLabel.adjustsFontSizeToFitWidth = true
+        dayLabel.baselineAdjustment = UIBaselineAdjustment.alignCenters
+        self.view.addSubview(dayLabel)
     }
     func createAddEventButton(){
         let addEventBtn = UIButton(type: .custom)
@@ -186,6 +212,8 @@ class SecondViewController: UIViewController {
     func setup(dayInt: Int, offset: Int, numberOfDays: Int){ //RECURSIVE METHOD
         if dayInt > numberOfDays {
             createAddEventButton()
+            setYearLabel()
+            setDayLabel()
             return
         }
         let offsetX = offset % 399
@@ -313,33 +341,52 @@ class SecondViewController: UIViewController {
     }
     
     func setStringFromInt(){
-        if(currentMonthInt == 1){
+        if(currentMonthInt == 0){
             currentMonthString = "January"
-        }else if(currentMonthInt == 2){
+        }else if(currentMonthInt == 1){
             currentMonthString = "February"
-        }else if(currentMonthInt == 3){
+        }else if(currentMonthInt == 2){
             currentMonthString = "March"
-        }else if(currentMonthInt == 4){
+        }else if(currentMonthInt == 3){
             currentMonthString = "April"
-        }else if(currentMonthInt == 5){
+        }else if(currentMonthInt == 4){
             currentMonthString = "May"
-        }else if(currentMonthInt == 6){
+        }else if(currentMonthInt == 5){
             currentMonthString = "June"
-        }else if(currentMonthInt == 7){
+        }else if(currentMonthInt == 6){
             currentMonthString = "July"
-        }else if(currentMonthInt == 8){
+        }else if(currentMonthInt == 7){
             currentMonthString = "August"
-        }else if(currentMonthInt == 9){
+        }else if(currentMonthInt == 8){
             currentMonthString = "September"
-        }else if(currentMonthInt == 10){
+        }else if(currentMonthInt == 9){
             currentMonthString = "October"
-        }else if(currentMonthInt == 11){
+        }else if(currentMonthInt == 10){
             currentMonthString = "November"
-        }else if(currentMonthInt == 12){
+        }else if(currentMonthInt == 11){
             currentMonthString = "December"
         }
     }
-    
-    
+    func leapYearTestandSetup(){
+        modList.removeAll()
+        if(year % 4 == 0){
+            numberOfDaysInMonth[1] = 29
+        } else{
+            numberOfDaysInMonth[1] = 28
+        }
+        var i = 0
+        while i < 12 {
+            if(i == 0){
+                modList.append((year-2017))
+            }else{
+                modList.append(((modList[i-1]) + (numberOfDaysInMonth[i-1]) % 7) % 7)
+            }
+            print(modList[i] )
+            i = i + 1
+            //
+        }
+        // modList.append(modList[1])
+        print("M")
+    }
 }
 
