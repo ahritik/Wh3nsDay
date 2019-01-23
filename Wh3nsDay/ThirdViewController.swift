@@ -228,7 +228,7 @@ class ThirdViewController: UIViewController {
     }
     
     @objc func delete0(delete: Int){
-        deleteEventByName(name: events2[scrollCount * 12 + 0][0])
+        deleteEventByName(event: events2[scrollCount * 12 + 0][0] )
         events2.remove(at: scrollCount * 12 + 0 )
         print(events2.count)
         if(events2.count == 0){
@@ -249,78 +249,78 @@ class ThirdViewController: UIViewController {
             setup(startI: 12 * scrollCount)
     }
     
-    @objc func delete1(delete: Int){
-        deleteEventByName(name: events2[scrollCount * 12 + 1][0])
+    @objc func delete1(delete: NSManagedObject){
+        deleteEventByName(event: events2[scrollCount * 12 + 1][0])
         events2.remove(at: scrollCount * 12 + 1 )
         setup(startI: scrollCount * 12)
         print("del1")
     }
     
-    @objc func delete2(delete: Int){
-        deleteEventByName(name: events2[scrollCount * 12 + 2][0])
+    @objc func delete2(delete: NSManagedObject){
+        deleteEventByName(event: events2[scrollCount * 12 + 2][0])
         events2.remove(at: scrollCount * 12 + 2 )
         setup(startI: scrollCount * 12)
         print("del2")
     }
     
-    @objc func delete3(delete: Int){
-        deleteEventByName(name: events2[scrollCount * 12 + 3][0])
+    @objc func delete3(delete: NSManagedObject){
+        deleteEventByName(event: events2[scrollCount * 12 + 3][0])
         events2.remove(at: scrollCount * 12 + 3 )
         setup(startI: scrollCount * 12)
         print("del3")
     }
     
-    @objc func delete4(delete: Int){
-        deleteEventByName(name: events2[scrollCount * 12 + 4][0])
+    @objc func delete4(delete: NSManagedObject){
+        deleteEventByName(event: events2[scrollCount * 12 + 4][0])
         events2.remove(at: scrollCount * 12 + 4 )
         setup(startI: scrollCount * 12)
         print("del4")
     }
     
-    @objc func delete5(delete: Int){
-        deleteEventByName(name: events2[scrollCount * 12 + 5][0])
+    @objc func delete5(delete: NSManagedObject){
+        deleteEventByName(event: events2[scrollCount * 12 + 5][0])
         events2.remove(at: scrollCount * 12 + 5 )
         setup(startI: scrollCount * 12)
         print("del5")
     }
     
-    @objc func delete6(delete: Int){
-        deleteEventByName(name: events2[scrollCount * 12 + 6][0])
+    @objc func delete6(delete: NSManagedObject){
+        deleteEventByName(event: events2[scrollCount * 12 + 6][0])
         events2.remove(at: scrollCount * 12 + 6 )
         setup(startI: scrollCount * 12)
         print("del6")
     }
     
-    @objc func delete7(delete: Int){
-        deleteEventByName(name: events2[scrollCount * 12 + 7][0])
+    @objc func delete7(delete: NSManagedObject){
+        deleteEventByName(event: events2[scrollCount * 12 + 7][0])
         events2.remove(at: scrollCount * 12 + 7 )
         setup(startI: scrollCount * 12)
         print("del7")
     }
     
-    @objc func delete8(delete: Int){
-        deleteEventByName(name: events2[scrollCount * 12 + 8][0])
+    @objc func delete8(delete: NSManagedObject){
+        deleteEventByName(event: events2[scrollCount * 12 + 8][0])
         events2.remove(at: scrollCount * 12 + 8 )
         setup(startI: scrollCount * 12)
         print("del8")
     }
     
-    @objc func delete9(delete: Int){
-        deleteEventByName(name: events2[scrollCount * 12 + 9][0])
+    @objc func delete9(delete: NSManagedObject){
+        deleteEventByName(event: events2[scrollCount * 12 + 9][0])
         events2.remove(at: scrollCount * 12 + 9 )
         setup(startI: scrollCount * 12)
         print("del9")
     }
     
-    @objc func delete10(delete: Int){
-        deleteEventByName(name: events2[scrollCount * 12 + 10][0])
+    @objc func delete10(delete: NSManagedObject){
+        deleteEventByName(event: events2[scrollCount * 12 + 10][0])
         events2.remove(at: scrollCount * 12 + 10 )
         setup(startI: scrollCount * 12)
         print("del10")
         
     }
-    @objc func delete11(delete: Int){
-        deleteEventByName(name: events2[scrollCount * 12 + 11][0])
+    @objc func delete11(delete: NSManagedObject){
+        deleteEventByName(event: events2[scrollCount * 12 + 11][0])
         events2.remove(at: scrollCount * 12 + 11 )
         setup(startI: scrollCount * 12)
         print("del11")
@@ -361,24 +361,19 @@ class ThirdViewController: UIViewController {
         return eventDay
     }
     
-    func deleteEventByName(name:String){
-        
-            //make the date fromatted
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "yyyy'-'MM'-'dd'T'HH':'mm':'ssZZZ"
-            //dateFormatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
+    func deleteEventByName(event:NSManagedObject){
         
             //Creates a retchRequest which has access to all events in the database
             let context = AppDelegate.getContext()
             let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Entity")
-            let date = dateFormatter.date(from: name+"T00:00:00+0000")
-            //fetchRequest.predicate = NSPredicate(format: "%K == %@", #keyPath(Entity.startDate), date! as CVarArg)
         
             let result = try? context.fetch(fetchRequest)
             let resultData = result as! [Entity]
             
             for object in resultData {
-                context.delete(object)
+                if(object == event){
+                    context.delete(object)
+                }
             }
         
             //Save the channges made to the file
