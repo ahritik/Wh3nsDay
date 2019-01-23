@@ -203,16 +203,6 @@ class ThirdViewController: UIViewController {
             btn.addTarget(self, action: #selector(delete5(delete: )), for: .touchUpInside)
         }else if(i == 6){
             btn.addTarget(self, action: #selector(delete6(delete: )), for: .touchUpInside)
-        }else if(i == 7){
-            btn.addTarget(self, action: #selector(delete7(delete: )), for: .touchUpInside)
-        }else if(i == 8){
-            btn.addTarget(self, action: #selector(delete8(delete: )), for: .touchUpInside)
-        }else if(i == 9){
-            btn.addTarget(self, action: #selector(delete9(delete: )), for: .touchUpInside)
-        }else if(i == 10){
-            btn.addTarget(self, action: #selector(delete10(delete: )), for: .touchUpInside)
-        }else if(i == 6){
-            btn.addTarget(self, action: #selector(delete6(delete: )), for: .touchUpInside)
         }
     }
     // there methods delete an event based on the button that was pushed, there are 7 methods because there is a max of 7 events per swipe page.
@@ -270,35 +260,8 @@ class ThirdViewController: UIViewController {
         setup(startI: scrollCount * 7)
     }
     
-    @objc func delete7(delete: NSManagedObject){
-        deleteEventByName(event: events2[scrollCount * 7 + 7][0])
-        events2.remove(at: scrollCount * 7 + 7 )
-        setup(startI: scrollCount * 7)
-    }
-    
-    @objc func delete8(delete: NSManagedObject){
-        deleteEventByName(event: events2[scrollCount * 7 + 8][0])
-        events2.remove(at: scrollCount * 7 + 8 )
-        setup(startI: scrollCount * 7)
-    }
-    
-    @objc func delete9(delete: NSManagedObject){
-        deleteEventByName(event: events2[scrollCount * 7 + 9][0])
-        events2.remove(at: scrollCount * 7 + 9 )
-        setup(startI: scrollCount * 7)
-    }
-    
-    @objc func delete10(delete: NSManagedObject){
-        deleteEventByName(event: events2[scrollCount * 7 + 10][0])
-        events2.remove(at: scrollCount * 7 + 10 )
-        setup(startI: scrollCount * 7)
-    }
-    @objc func delete11(delete: NSManagedObject){
-        deleteEventByName(event: events2[scrollCount * 7 + 6][0])
-        events2.remove(at: scrollCount * 7 + 6 )
-        setup(startI: scrollCount * 7)
-    }
-    
+
+
     func getEventDay(n: String) -> Array<[NSManagedObject]> { // gets the event from the string dane passes to me - h
         var eventDay : Array<[NSManagedObject]> = []
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Entity") // pulls from database - h
