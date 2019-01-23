@@ -228,7 +228,7 @@ class ThirdViewController: UIViewController {
     }
     
     @objc func delete0(delete: Int){
-        deleteEventByName(name: events2[scrollCount * 12 + 0][0] )
+        deleteEventByName(name: events2[scrollCount * 12 + 0][0])
         events2.remove(at: scrollCount * 12 + 0 )
         print(events2.count)
         if(events2.count == 0){
