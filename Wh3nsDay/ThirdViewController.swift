@@ -50,14 +50,21 @@ class ThirdViewController: UIViewController {
     }
     
     func filter(eventsFull: Array<[NSManagedObject]>, day : Date) -> Array<[NSManagedObject]> {
+        var eventsFull = eventsFull
+        
+        print((events2[0][0].value(forKey: "startDate") as! Date) < day)
+        print((events2[0][0].value(forKey: "startDate") as! Date) < day)
         var i : Int = 0
-        for a in events{
+        for a in eventsFull{
+            print((((a[0].value(forKey: "startDate")) as! Date) < day) && (((a[0].value(forKey: "startDate")) as! Date) < day.addingTimeInterval(86400)))
             if ((((a[0].value(forKey: "startDate")) as! Date) < day) || (((a[0].value(forKey: "startDate")) as! Date) > day.addingTimeInterval(86400))){
-                events.remove(at: i)
+                eventsFull.remove(at: i)
                 i-=1
             }
             i+=1
         }
+        print(eventsFull)
+        print("eventsFyll")
         return eventsFull
     }
     
