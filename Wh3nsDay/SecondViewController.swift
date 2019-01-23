@@ -212,7 +212,11 @@ class SecondViewController: UIViewController {
         let btn = UIButton(type: .custom)
         btn.frame = .init(x: 10+offsetX, y: 250 + offsetY, width: 55, height: 60)
         btn.setTitle(dayString, for: .normal)
-        btn.backgroundColor = UIColor.blue
+        if(hasEvent(year + String(adjInt(int: dayInt)) + String(adjInt(int: currentMonthInt)))){
+            btn.backgroundColor = UIColor.red
+            } else {
+            btn.backgroundColor = UIColor.blue
+            }
         btn.layer.cornerRadius = 15
         btn.layer.borderColor = UIColor.black.cgColor
         btn.layer.borderWidth = 1
