@@ -12,22 +12,17 @@ import UIKit
 
 
 class SecondViewController: UIViewController {
-    //private var button = _: UIButton
-    
-
-   // @IBOutlet weak var first: UIButton?
-   // @IBOutlet weak var second: UIButton?
     private var currentDate = Date()
     private var currentMonthString = ""
     private var currentMonthInt = 0
     private var year = 2019
     private var monthLabel = UILabel()
     private var numberOfDaysInMonth = [Int]()
-    private var modList = [Int]()
+    private var modList = [Int]() // modlist is used to calculate the offset when modList % 7 -d
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        numberOfDaysInMonth.append(31)
+        numberOfDaysInMonth.append(31) // creates array of days in month based on 2019, in 2020 it will still work -d
         numberOfDaysInMonth.append(28)
         numberOfDaysInMonth.append(31)
         numberOfDaysInMonth.append(30)
@@ -39,26 +34,24 @@ class SecondViewController: UIViewController {
         numberOfDaysInMonth.append(31)
         numberOfDaysInMonth.append(30)
         numberOfDaysInMonth.append(31)
-        currentMonthString = getMonthFromDate(date: currentDate)
+        currentMonthString = getMonthFromDate(date: currentDate) // used current date so no matter when u use this app it will start off on the current month and year - d
         setMonthLabel()
         setYearLabel()
-        // Do any additional setup after loading the view, typically from a nib.
-        //  let calendarObject = NSCalendar.autoupdatingCurrent
-        leapYearTestandSetup()
-        setup(dayInt: 1, offset: offsetCalculator(), numberOfDays: numberOfDaysInMonth[currentMonthInt])
+        leapYearTestandSetup() // test if leap year and shifts offset bases on year - d
+        setup(dayInt: 1, offset: offsetCalculator(), numberOfDays: numberOfDaysInMonth[currentMonthInt]) // sets up view
         
     }
     
-    @IBAction func nextMonth(_ sender: Any) {
+    @IBAction func nextMonth(_ sender: Any) { // when swiped right it shows the next month - d
         currentMonthInt = currentMonthInt + 1
         
-        view.subviews.forEach({ $0.removeFromSuperview() })
-        if (currentMonthInt == 12){
+        view.subviews.forEach({ $0.removeFromSuperview() }) //  clears screen - d
+        if (currentMonthInt == 12){ // cycles trrough and changes year - d
             year = year + 1
             currentMonthInt = 0
         }
-        setStringFromInt()
-        monthLabel.text = currentMonthString
+        setStringFromInt() //sets vars
+        monthLabel.text = currentMonthString // changes the month user sees - d
         leapYearTestandSetup()
         setup(dayInt: 1, offset: offsetCalculator(), numberOfDays: numberOfDaysInMonth[currentMonthInt])
         modList[currentMonthInt] = offsetCalculator()
@@ -70,9 +63,9 @@ class SecondViewController: UIViewController {
         
     }
     func offsetCalculator() -> Int{
-        return (57 * (modList[currentMonthInt] % 7) + (year - 2018) % 7)
+        return (57 * (modList[currentMonthInt] % 7) + (year - 2018) % 7) // each day is 57  units away so this calcumlates where each "1st" of the month should be - d
     }
-    @IBAction func lastMonth(_ sender: Any) {
+    @IBAction func lastMonth(_ sender: Any) { // same as next month but backwards - d
         currentMonthInt = currentMonthInt - 1
         view.subviews.forEach({ $0.removeFromSuperview() })
         if (currentMonthInt == -1){
@@ -91,7 +84,7 @@ class SecondViewController: UIViewController {
     }
     
     
-    func getMonthFromDate(date: Date)-> String{
+    func getMonthFromDate(date: Date)-> String{ //sets month data from a date obj
         let now = Date()
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "LLLL"
@@ -136,7 +129,6 @@ class SecondViewController: UIViewController {
         return(currentMonthString)
     }
     func setMonthLabel(){
-        // x = left, y = top, width = width of lebel, height = height of lebel
         monthLabel.frame = CGRect(x: 207, y: 50, width: 200, height: 50)
         monthLabel.center.x = self.view.center.x
         monthLabel.text = currentMonthString
@@ -151,7 +143,6 @@ class SecondViewController: UIViewController {
         monthLabel.numberOfLines = 0
         monthLabel.adjustsFontSizeToFitWidth = true
         monthLabel.baselineAdjustment = UIBaselineAdjustment.alignCenters
-        
         self.view.addSubview(monthLabel)
     }
     func setYearLabel(){
@@ -163,7 +154,6 @@ class SecondViewController: UIViewController {
         yearLabel.textColor = UIColor.blue
         yearLabel.textAlignment = NSTextAlignment.center
         yearLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
-        //yearLabel.highlightedTextColor = UIColor.green
         yearLabel.isHighlighted = false
         yearLabel.isUserInteractionEnabled = true
         yearLabel.isEnabled = true
@@ -192,13 +182,12 @@ class SecondViewController: UIViewController {
         dayLabel.baselineAdjustment = UIBaselineAdjustment.alignCenters
         self.view.addSubview(dayLabel)
     }
-    func createAddEventButton(){
+    func createAddEventButton(){ // button that changes to add view controller - d
         let addEventBtn = UIButton(type: .custom)
         addEventBtn.frame = .init(x: 207, y: 800, width: 100, height: 60)
         addEventBtn.setTitle("Add Event", for: .normal)
         addEventBtn.backgroundColor = UIColor.blue
         addEventBtn.center.x = self.view.center.x
-        //addEventBtn
         addEventBtn.layer.cornerRadius = 15
         addEventBtn.layer.borderColor = UIColor.black.cgColor
         addEventBtn.layer.borderWidth = 1
@@ -206,12 +195,12 @@ class SecondViewController: UIViewController {
         addEventBtn.addTarget(self, action: #selector(addEventSwitch(e: )), for: .touchUpInside)
         self.view.addSubview(addEventBtn)
     }
-    @objc func addEventSwitch(e: Int){
+    @objc func addEventSwitch(e: Int){ // is the method that moves to add view controller
         let homeView = self.storyboard?.instantiateViewController(withIdentifier: "addEventView") as! ViewController
         self.present(homeView, animated: false, completion: nil)
     }
-    func setup(dayInt: Int, offset: Int, numberOfDays: Int){ //RECURSIVE METHOD
-        if dayInt > numberOfDays {
+    func setup(dayInt: Int, offset: Int, numberOfDays: Int){ //RECURSIVE METHOD - d
+        if dayInt > numberOfDays { // when all days r made it stops
             createAddEventButton()
             setYearLabel()
             setDayLabel()
@@ -227,17 +216,13 @@ class SecondViewController: UIViewController {
         btn.layer.cornerRadius = 15
         btn.layer.borderColor = UIColor.black.cgColor
         btn.layer.borderWidth = 1
-        
-        // you must call this for rounded corner
         btn.layer.masksToBounds = true
         self.view.addSubview(btn)
-      //  print(offsetX, offsetY, 0%400)
-        addTarget(btn: btn, dayInt: dayInt)
-        setup(dayInt: dayInt + 1, offset: offset + 57, numberOfDays: numberOfDays        )
+        addTarget(btn: btn, dayInt: dayInt) // calls add event with button argument - d
+        setup(dayInt: dayInt + 1, offset: offset + 57, numberOfDays: numberOfDays )
     }
     
-    @objc func addTarget(btn: UIButton, dayInt: Int) {
-       // print(btn.titleLabel)
+    @objc func addTarget(btn: UIButton, dayInt: Int) { // unfortunatly when adding a target to a button you can not pass an argument so i have to use if's to see what the target of the button should be - d
         if dayInt == 1 {
             btn.addTarget(self, action: #selector(pressed1(dayInt: )), for: .touchUpInside)
         }else if dayInt == 2 {
@@ -302,7 +287,7 @@ class SecondViewController: UIViewController {
             btn.addTarget(self, action: #selector(pressed31(dayInt: )), for: .touchUpInside)
         }
         
-    }
+    } // all the below methods are the destinations of the above targets - d
     @objc func pressed1(dayInt: Int){openDay(dayInt: 1)}
     @objc func pressed2(dayInt: Int){openDay(dayInt: 2)}
     @objc func pressed3(dayInt: Int){openDay(dayInt: 3)}
@@ -335,8 +320,7 @@ class SecondViewController: UIViewController {
     @objc func pressed30(dayInt: Int){openDay(dayInt: 30)}
     @objc func pressed31(dayInt: Int){openDay(dayInt: 31)}
    
-    func openDay(dayInt: Int){
-        //test
+    func openDay(dayInt: Int){ // changes story board and  passes the date to use -d
         print(dayInt)
         let homeView = self.storyboard?.instantiateViewController(withIdentifier: "eventListView") as! ThirdViewController
         let s = String(year) + "-" + adjInt(int: currentMonthInt + 1) + "-" + adjInt(int: dayInt)
@@ -344,7 +328,7 @@ class SecondViewController: UIViewController {
         print(s)
         self.present(homeView, animated: false, completion: nil)
     }
-    func adjInt(int: Int) -> String{
+    func adjInt(int: Int) -> String{ // if day is "5" i need it to be "05"
         var stringInt = String(int)
         if(stringInt.count == 1){
             stringInt = "0" + stringInt
@@ -380,8 +364,8 @@ class SecondViewController: UIViewController {
         }
     }
     func leapYearTestandSetup(){
-        modList.removeAll()
-        if(year % 4 == 0){
+        modList.removeAll() // clears modlis - d
+        if(year % 4 == 0){ // checks for leap year - d
             numberOfDaysInMonth[1] = 29
         } else{
             numberOfDaysInMonth[1] = 28
@@ -389,16 +373,14 @@ class SecondViewController: UIViewController {
         var i = 0
         while i < 12 {
             if(i == 0){
-                modList.append((year-2017))
+                modList.append((year-2017)) // in 2017 offset = 0 - d
             }else{
-                modList.append(((modList[i-1]) + (numberOfDaysInMonth[i-1]) % 7) % 7)
+                modList.append(((modList[i-1]) + (numberOfDaysInMonth[i-1]) % 7) % 7) // calc offset -d
             }
             print(modList[i] )
             i = i + 1
             //
         }
-        // modList.append(modList[1])
-        print("M")
     }
 }
 

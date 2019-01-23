@@ -11,9 +11,6 @@
 		8215F40D21F3FCE8004CE89A /* ThirdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8215F40C21F3FCE8004CE89A /* ThirdViewController.swift */; };
 		8215F40F21F43A71004CE89A /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8215F40E21F43A71004CE89A /* DataController.swift */; };
 		8226DB5821EF030D00522173 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8226DB5721EF030D00522173 /* SecondViewController.swift */; };
-		8226DB5C21EF040900522173 /* Calendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8226DB5921EF040800522173 /* Calendar.swift */; };
-		8226DB5D21EF040900522173 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8226DB5A21EF040900522173 /* Event.swift */; };
-		8226DB5E21EF040900522173 /* Day.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8226DB5B21EF040900522173 /* Day.swift */; };
 		829ED7CA21EEFC0700E20E88 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 829ED7C921EEFC0700E20E88 /* AppDelegate.swift */; };
 		829ED7CC21EEFC0700E20E88 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 829ED7CB21EEFC0700E20E88 /* ViewController.swift */; };
 		829ED7D221EEFC0700E20E88 /* Wh3nsDay.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 829ED7D021EEFC0700E20E88 /* Wh3nsDay.xcdatamodeld */; };
@@ -29,9 +26,6 @@
 		8215F40C21F3FCE8004CE89A /* ThirdViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThirdViewController.swift; sourceTree = "<group>"; };
 		8215F40E21F43A71004CE89A /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		8226DB5721EF030D00522173 /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
-		8226DB5921EF040800522173 /* Calendar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Calendar.swift; sourceTree = "<group>"; };
-		8226DB5A21EF040900522173 /* Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
-		8226DB5B21EF040900522173 /* Day.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Day.swift; sourceTree = "<group>"; };
 		829ED7C621EEFC0700E20E88 /* Wh3nsDay.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Wh3nsDay.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		829ED7C921EEFC0700E20E88 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		829ED7CB21EEFC0700E20E88 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -84,9 +78,6 @@
 			isa = PBXGroup;
 			children = (
 				829ED7C921EEFC0700E20E88 /* AppDelegate.swift */,
-				8226DB5921EF040800522173 /* Calendar.swift */,
-				8226DB5B21EF040900522173 /* Day.swift */,
-				8226DB5A21EF040900522173 /* Event.swift */,
 				829ED7CB21EEFC0700E20E88 /* ViewController.swift */,
 				8215F40C21F3FCE8004CE89A /* ThirdViewController.swift */,
 				8215F40E21F43A71004CE89A /* DataController.swift */,
@@ -236,15 +227,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8226DB5E21EF040900522173 /* Day.swift in Sources */,
 				8226DB5821EF030D00522173 /* SecondViewController.swift in Sources */,
 				829ED7CC21EEFC0700E20E88 /* ViewController.swift in Sources */,
 				829ED7CA21EEFC0700E20E88 /* AppDelegate.swift in Sources */,
 				8215F40F21F43A71004CE89A /* DataController.swift in Sources */,
 				829ED7D221EEFC0700E20E88 /* Wh3nsDay.xcdatamodeld in Sources */,
-				8226DB5D21EF040900522173 /* Event.swift in Sources */,
 				8215F40D21F3FCE8004CE89A /* ThirdViewController.swift in Sources */,
-				8226DB5C21EF040900522173 /* Calendar.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

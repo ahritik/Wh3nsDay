@@ -10,12 +10,12 @@ import Foundation
 import UIKit
 import CoreData
 
-class DataController: NSObject {
+class DataController: NSObject { // uses NSObject to work with dates and time managment - h
     var managedObjectContext: NSManagedObjectContext?
     
     init(completionClosure: @escaping () -> ()) {
-        let persistentContainer = NSPersistentContainer(name: "Wh3nsDay")
-        persistentContainer.loadPersistentStores() { (description, error) in
+        let persistentContainer = NSPersistentContainer(name: "Wh3nsDay") // creates a container in core data with the name wh3nsday - h
+        persistentContainer.loadPersistentStores() { (description, error) in // catchs error in loading
             if let error = error {
                 fatalError("Failed to load Core Data stack: \(error)")
             }
