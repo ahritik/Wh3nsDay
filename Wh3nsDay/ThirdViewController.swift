@@ -29,11 +29,11 @@ class ThirdViewController: UIViewController {
         super.viewDidLoad()
         events2 = getEventDay(n: currentDateInString) // fills array with all events - h
         events2 = filter(eventsFull:events2, day: strToDate(dayString : currentDateInString)) // filters array to just the one day - h
-        if(events2.count > 11){ //one page fits 12 events and if there are more then one can swipe up to see them.
-            endI = 11 // end i is the end index of events that will be shown on a given page
+        if(events2.count > 6){ //one page fits 7 events and if there are more then one can swipe up to see them.
+            endI = 6 // end i is the end index of events that will be shown on a given page
         } else { endI = events2.count - 1}
         setup(startI: 0)
-        // setup(startI: 12, endI: 23)
+        // setup(startI: 7, endI: 23)
     }
     
     func filter(eventsFull: Array<[NSManagedObject]>, day : Date) -> Array<[NSManagedObject]> {
@@ -50,13 +50,13 @@ class ThirdViewController: UIViewController {
         return e
     }
     
-    @IBAction func swipeUp(_ sender: Any) { // allows user to swipe up to see more events if there are more than 12 events in that day - d
+    @IBAction func swipeUp(_ sender: Any) { // allows user to swipe up to see more events if there are more than 7 events in that day - d
         scrollCount = scrollCount + 1 // count keeps track of what page/ scroll the user is on - d
-        if(12 * scrollCount  >= events2.count){ // if there are no more events to scroll to then it will end method - d
+        if(7 * scrollCount  >= events2.count){ // if there are no more events to scroll to then it will end method - d
             scrollCount = scrollCount - 1
             return
         }
-        setup(startI: 12 * scrollCount) // runs setup with a new start index
+        setup(startI: 7 * scrollCount) // runs setup with a new start index
     }
     @IBAction func swipeDown(_ sender: Any) { // same as swipe up but checks if one can continue swiping down - d
         scrollCount = scrollCount - 1
@@ -64,7 +64,7 @@ class ThirdViewController: UIViewController {
            scrollCount = scrollCount + 1
             return
         }
-        setup(startI: 12 * scrollCount)
+        setup(startI: 7 * scrollCount)
     }
     
     public func setCurrentDateInString(d: String){ // mutator method called by previous view controller so we know what date/ events we need to show - d
@@ -72,11 +72,11 @@ class ThirdViewController: UIViewController {
     }
     
     func setup(startI: Int){ // sets up the events from a start index
-        endI = (events2.count) - (events2.count - (scrollCount * 12)) - 2 // calculates what the End index should be depending on the length of the array
-        if(events2.count - endI > 11){
-            endI = 11 + scrollCount * 12
+        endI = (events2.count) - (events2.count - (scrollCount * 7)) - 2 // calculates what the End index should be depending on the length of the array
+        if(events2.count - endI > 6){
+            endI = 6 + scrollCount * 7
         }else{
-            endI = events2.count % 12 + scrollCount * 12 - 1
+            endI = events2.count % 7 + scrollCount * 7 - 1
         }
         view.subviews.forEach({ $0.removeFromSuperview() }) // clears everything
         setBackButton() // creates back button
@@ -95,7 +95,7 @@ class ThirdViewController: UIViewController {
         while i >= startI {     // creates label of event - d
             let eventLabel = UILabel()
             eventLabel.frame = CGRect(x: 80, y: 150
-                + (yDifference * (i % 12)), width: 300, height: 30)
+                + (yDifference * (i % 7)), width: 300, height: 30)
             let name = String(events2[i][0].value(forKey: "name") as! String) //pulls from database and gets startDate - h
             let df = DateFormatter()// gets startdate as a time - d
             df.dateFormat = "hh:mm:ss"
@@ -104,9 +104,9 @@ class ThirdViewController: UIViewController {
             let end = df.string(from: (events2[i][0].value(forKey: "endDate") as! Date))
             print(end)
             setStartAndEndTimes(str: "Start: " + start, yPosition: 150 // calls a method that sets up the start time label -d
-                + (yDifference * (i % 12)) - 15)
+                + (yDifference * (i % 7)) - 15)
             setStartAndEndTimes(str: "End: " + end, yPosition: 150 // sets up end time label
-                + (yDifference * (i % 12)) + 15)
+                + (yDifference * (i % 7)) + 15)
             eventLabel.text = String( "        " + name) // gives space for start and end time labels and sets name -d
             //print(eventLabel.text)
             
@@ -119,7 +119,7 @@ class ThirdViewController: UIViewController {
             eventLabel.adjustsFontSizeToFitWidth = true
             eventLabel.baselineAdjustment = UIBaselineAdjustment.alignCenters
             self.view.addSubview(eventLabel) // adds label to viewcontrolller
-            createDeleteButton(i: i % 12, yDifference: yDifference) // creates a delete button that corresponds with the right label - d
+            createDeleteButton(i: i % 7, yDifference: yDifference) // creates a delete button that corresponds with the right label - d
             
             i = i - 1
         }
@@ -177,7 +177,7 @@ class ThirdViewController: UIViewController {
     func createDeleteButton(i: Int, yDifference: Int){ // creates delete button based on what label it will delete
         let btn = UIButton(type: .custom)
         btn.frame = .init(x: 370, y: 155
-            + (yDifference * (i % 12)), width: 20, height: 20)
+            + (yDifference * (i % 7)), width: 20, height: 20)
         btn.setTitle("-", for: .normal)
         btn.backgroundColor = UIColor.red
         btn.layer.cornerRadius = 10
@@ -211,92 +211,92 @@ class ThirdViewController: UIViewController {
             btn.addTarget(self, action: #selector(delete9(delete: )), for: .touchUpInside)
         }else if(i == 10){
             btn.addTarget(self, action: #selector(delete10(delete: )), for: .touchUpInside)
-        }else if(i == 11){
-            btn.addTarget(self, action: #selector(delete11(delete: )), for: .touchUpInside)
+        }else if(i == 6){
+            btn.addTarget(self, action: #selector(delete6(delete: )), for: .touchUpInside)
         }
     }
-    // there methods delete an event based on the button that was pushed, there are 12 methods because there is a max of 12 events per swipe page.
+    // there methods delete an event based on the button that was pushed, there are 7 methods because there is a max of 7 events per swipe page.
     @objc func delete0(delete: Int){
-        deleteEventByName(event: events2[scrollCount * 12 + 0][0] )
-        events2.remove(at: scrollCount * 12 + 0 )
+        deleteEventByName(event: events2[scrollCount * 7 + 0][0] )
+        events2.remove(at: scrollCount * 7 + 0 )
         if(events2.count == 0){
             endI = 0
             setup(startI: 0)
             return
         }
-        if(scrollCount * 12 - endI == 0){
+        if(scrollCount * 7 - endI == 0){
             scrollCount = scrollCount - 1
             if(scrollCount < 0){
                 scrollCount = scrollCount + 1
                 return
             }
         }
-            setup(startI: 12 * scrollCount)
+            setup(startI: 7 * scrollCount)
     }
     
     @objc func delete1(delete: NSManagedObject){
-        deleteEventByName(event: events2[scrollCount * 12 + 1][0])
-        events2.remove(at: scrollCount * 12 + 1 )
-        setup(startI: scrollCount * 12)
+        deleteEventByName(event: events2[scrollCount * 7 + 1][0])
+        events2.remove(at: scrollCount * 7 + 1 )
+        setup(startI: scrollCount * 7)
     }
     
     @objc func delete2(delete: NSManagedObject){
-        deleteEventByName(event: events2[scrollCount * 12 + 2][0])
-        events2.remove(at: scrollCount * 12 + 2 )
-        setup(startI: scrollCount * 12)
+        deleteEventByName(event: events2[scrollCount * 7 + 2][0])
+        events2.remove(at: scrollCount * 7 + 2 )
+        setup(startI: scrollCount * 7)
     }
     
     @objc func delete3(delete: NSManagedObject){
-        deleteEventByName(event: events2[scrollCount * 12 + 3][0])
-        events2.remove(at: scrollCount * 12 + 3 )
-        setup(startI: scrollCount * 12)
+        deleteEventByName(event: events2[scrollCount * 7 + 3][0])
+        events2.remove(at: scrollCount * 7 + 3 )
+        setup(startI: scrollCount * 7)
     }
     
     @objc func delete4(delete: NSManagedObject){
-        deleteEventByName(event: events2[scrollCount * 12 + 4][0])
-        events2.remove(at: scrollCount * 12 + 4 )
-        setup(startI: scrollCount * 12)
+        deleteEventByName(event: events2[scrollCount * 7 + 4][0])
+        events2.remove(at: scrollCount * 7 + 4 )
+        setup(startI: scrollCount * 7)
     }
     
     @objc func delete5(delete: NSManagedObject){
-        deleteEventByName(event: events2[scrollCount * 12 + 5][0])
-        events2.remove(at: scrollCount * 12 + 5 )
-        setup(startI: scrollCount * 12)
+        deleteEventByName(event: events2[scrollCount * 7 + 5][0])
+        events2.remove(at: scrollCount * 7 + 5 )
+        setup(startI: scrollCount * 7)
     }
     
     @objc func delete6(delete: NSManagedObject){
-        deleteEventByName(event: events2[scrollCount * 12 + 6][0])
-        events2.remove(at: scrollCount * 12 + 6 )
-        setup(startI: scrollCount * 12)
+        deleteEventByName(event: events2[scrollCount * 7 + 6][0])
+        events2.remove(at: scrollCount * 7 + 6 )
+        setup(startI: scrollCount * 7)
     }
     
     @objc func delete7(delete: NSManagedObject){
-        deleteEventByName(event: events2[scrollCount * 12 + 7][0])
-        events2.remove(at: scrollCount * 12 + 7 )
-        setup(startI: scrollCount * 12)
+        deleteEventByName(event: events2[scrollCount * 7 + 7][0])
+        events2.remove(at: scrollCount * 7 + 7 )
+        setup(startI: scrollCount * 7)
     }
     
     @objc func delete8(delete: NSManagedObject){
-        deleteEventByName(event: events2[scrollCount * 12 + 8][0])
-        events2.remove(at: scrollCount * 12 + 8 )
-        setup(startI: scrollCount * 12)
+        deleteEventByName(event: events2[scrollCount * 7 + 8][0])
+        events2.remove(at: scrollCount * 7 + 8 )
+        setup(startI: scrollCount * 7)
     }
     
     @objc func delete9(delete: NSManagedObject){
-        deleteEventByName(event: events2[scrollCount * 12 + 9][0])
-        events2.remove(at: scrollCount * 12 + 9 )
-        setup(startI: scrollCount * 12)
+        deleteEventByName(event: events2[scrollCount * 7 + 9][0])
+        events2.remove(at: scrollCount * 7 + 9 )
+        setup(startI: scrollCount * 7)
     }
     
     @objc func delete10(delete: NSManagedObject){
-        deleteEventByName(event: events2[scrollCount * 12 + 10][0])
-        events2.remove(at: scrollCount * 12 + 10 )
-        setup(startI: scrollCount * 12)
+        deleteEventByName(event: events2[scrollCount * 7 + 10][0])
+        events2.remove(at: scrollCount * 7 + 10 )
+        setup(startI: scrollCount * 7)
     }
     @objc func delete11(delete: NSManagedObject){
-        deleteEventByName(event: events2[scrollCount * 12 + 11][0])
-        events2.remove(at: scrollCount * 12 + 11 )
-        setup(startI: scrollCount * 12)
+        deleteEventByName(event: events2[scrollCount * 7 + 6][0])
+        events2.remove(at: scrollCount * 7 + 6 )
+        setup(startI: scrollCount * 7)
     }
     
     func getEventDay(n: String) -> Array<[NSManagedObject]> { // gets the event from the string dane passes to me - h
