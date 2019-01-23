@@ -38,13 +38,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
         self.present(homeView, animated: false, completion: nil)
         //print(alerts)
         print(startDatePickerInput.date)
-//        let startTimePast1970 = startDatePickerInput.date.timeIntervalSince1970
-//        let endTimePast1970 = endDatePickerInput.date.timeIntervalSince1970
-//        //convert to Integer
-//        let startTimeInt = Int(startTimePast1970)
-//        let endTimeInt = Int(endTimePast1970)
-//        print(startTimeInt)
-//        print(endTimeInt)
+
         
         
     }

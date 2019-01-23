@@ -82,6 +82,8 @@ class ThirdViewController: UIViewController {
         print(endI)
         
         view.subviews.forEach({ $0.removeFromSuperview() })
+        setBackButton()
+        setDateLabel()
         var div = endI - startI
         if(div < 2){
             div = 2
@@ -116,6 +118,44 @@ class ThirdViewController: UIViewController {
             
             i = i - 1
         }
+    }
+    func setBackButton(){
+        let btn = UIButton(type: .custom)
+        btn.frame = .init(x: 25, y: 60, width: 60, height: 20)
+        btn.setTitle("Back", for: .normal)
+        btn.backgroundColor = UIColor.blue
+        btn.layer.cornerRadius = 10
+        btn.layer.borderColor = UIColor.black.cgColor
+        btn.layer.borderWidth = 1
+        
+        // you must call this for rounded corner
+        btn.layer.masksToBounds = true
+        self.view.addSubview(btn)
+        btn.addTarget(self, action: #selector(backButton(Back: )), for: .touchUpInside)
+        //  print(offsetX, offsetY, 0%400)
+    }
+    @objc func backButton(Back: Int){
+        let homeView = self.storyboard?.instantiateViewController(withIdentifier: "CalView") as! SecondViewController
+        self.present(homeView, animated: false, completion: nil)
+    }
+    func setDateLabel(){
+        let dayLabel = UILabel()
+        dayLabel.frame = CGRect(x: 207, y: 75, width: 500, height: 30)
+        dayLabel.center.x = self.view.center.x
+        dayLabel.text = currentDateInString
+        dayLabel.font = UIFont(name: "HelveticaNeue-Bold", size: 26)
+        dayLabel.textColor = UIColor.blue
+        dayLabel.textAlignment = NSTextAlignment.center
+        dayLabel.center.x = dayLabel.center.x - 2
+        dayLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
+        //dayLabel.highlightedTextColor = UIColor.green
+        dayLabel.isHighlighted = false
+        dayLabel.isUserInteractionEnabled = true
+        dayLabel.isEnabled = true
+        dayLabel.numberOfLines = 0
+        dayLabel.adjustsFontSizeToFitWidth = true
+        dayLabel.baselineAdjustment = UIBaselineAdjustment.alignCenters
+        self.view.addSubview(dayLabel)
     }
     
     func createDeleteButton(i: Int, yDifference: Int){
@@ -164,6 +204,7 @@ class ThirdViewController: UIViewController {
     }
     
     @objc func delete0(delete: Int){
+        deleteEventByName(name: events2[scrollCount * 12 + 0][0].value(forKey: "name") as! String)
         events2.remove(at: scrollCount * 12 + 0 )
         print(events2.count)
         if(events2.count == 0){
@@ -185,66 +226,77 @@ class ThirdViewController: UIViewController {
     }
     
     @objc func delete1(delete: Int){
+        deleteEventByName(name: events2[scrollCount * 12 + 1][0].value(forKey: "name") as! String)
         events2.remove(at: scrollCount * 12 + 1 )
         setup(startI: scrollCount * 12)
         print("del1")
     }
     
     @objc func delete2(delete: Int){
+        deleteEventByName(name: events2[scrollCount * 12 + 2][0].value(forKey: "name") as! String)
         events2.remove(at: scrollCount * 12 + 2 )
         setup(startI: scrollCount * 12)
         print("del2")
     }
     
     @objc func delete3(delete: Int){
+        deleteEventByName(name: events2[scrollCount * 12 + 3][0].value(forKey: "name") as! String)
         events2.remove(at: scrollCount * 12 + 3 )
         setup(startI: scrollCount * 12)
         print("del3")
     }
     
     @objc func delete4(delete: Int){
+        deleteEventByName(name: events2[scrollCount * 12 + 4][0].value(forKey: "name") as! String)
         events2.remove(at: scrollCount * 12 + 4 )
         setup(startI: scrollCount * 12)
         print("del4")
     }
     
     @objc func delete5(delete: Int){
+        deleteEventByName(name: events2[scrollCount * 12 + 5][0].value(forKey: "name") as! String)
         events2.remove(at: scrollCount * 12 + 5 )
         setup(startI: scrollCount * 12)
         print("del5")
     }
     
     @objc func delete6(delete: Int){
+        deleteEventByName(name: events2[scrollCount * 12 + 6][0].value(forKey: "name") as! String)
         events2.remove(at: scrollCount * 12 + 6 )
         setup(startI: scrollCount * 12)
         print("del6")
     }
     
     @objc func delete7(delete: Int){
+        deleteEventByName(name: events2[scrollCount * 12 + 7][0].value(forKey: "name") as! String)
         events2.remove(at: scrollCount * 12 + 7 )
         setup(startI: scrollCount * 12)
         print("del7")
     }
     
     @objc func delete8(delete: Int){
+        deleteEventByName(name: events2[scrollCount * 12 + 8][0].value(forKey: "name") as! String)
         events2.remove(at: scrollCount * 12 + 8 )
         setup(startI: scrollCount * 12)
         print("del8")
     }
     
     @objc func delete9(delete: Int){
+        deleteEventByName(name: events2[scrollCount * 12 + 9][0].value(forKey: "name") as! String)
         events2.remove(at: scrollCount * 12 + 9 )
         setup(startI: scrollCount * 12)
         print("del9")
     }
     
     @objc func delete10(delete: Int){
+        deleteEventByName(name: events2[scrollCount * 12 + 10][0].value(forKey: "name") as! String)
         events2.remove(at: scrollCount * 12 + 10 )
         setup(startI: scrollCount * 12)
         print("del10")
         
     }
     @objc func delete11(delete: Int){
+        deleteEventByName(name: events2[scrollCount * 12 + 11][0].value(forKey: "name") as! String)
         events2.remove(at: scrollCount * 12 + 11 )
         setup(startI: scrollCount * 12)
         print("del11")
@@ -285,7 +337,7 @@ class ThirdViewController: UIViewController {
         return eventDay
     }
     
-    func deleteAllEventsInDate(name:String){
+    func deleteEventByName(name:String){
         
             //make the date fromatted
             let dateFormatter = DateFormatter()
