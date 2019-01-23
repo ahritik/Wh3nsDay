@@ -40,6 +40,7 @@ class ThirdViewController: UIViewController {
         events2 = getEventDay(n: currentDateInString)
         
         events2 = filter(eventsFull:events2, day: strToDate(dayString : currentDateInString))
+        print(events2)
         //print(events[0])
         // Do any additional setup after loading the view, typically from a nib.
         if(events2.count > 11){
@@ -51,14 +52,17 @@ class ThirdViewController: UIViewController {
     
     func filter(eventsFull: Array<[NSManagedObject]>, day : Date) -> Array<[NSManagedObject]> {
         var i : Int = 0
-        for a in events{
+        var e = eventsFull
+        for a in eventsFull{
+            print("HHEERREE")
             if ((((a[0].value(forKey: "startDate")) as! Date) < day) || (((a[0].value(forKey: "startDate")) as! Date) > day.addingTimeInterval(86400))){
-                events.remove(at: i)
+                print("in here:"+(a[0].value(forKey: "name") as! String))
+                e.remove(at: i)
                 i-=1
             }
             i+=1
         }
-        return eventsFull
+        return e
     }
     
     @IBAction func swipeUp(_ sender: Any) {
