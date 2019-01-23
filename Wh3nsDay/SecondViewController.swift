@@ -8,7 +8,7 @@
 
 import Foundation
 import UIKit
-
+import CoreData
 
 
 class SecondViewController: UIViewController {
@@ -212,7 +212,7 @@ class SecondViewController: UIViewController {
         let btn = UIButton(type: .custom)
         btn.frame = .init(x: 10+offsetX, y: 250 + offsetY, width: 55, height: 60)
         btn.setTitle(dayString, for: .normal)
-        if(hasEvent(year + String(adjInt(int: dayInt)) + String(adjInt(int: currentMonthInt)))){
+        if(hasEvent(stringYear : (String(year)+"-"+String(adjInt(int: currentMonthInt+1))+"-"+String(adjInt(int: dayInt))))){
             btn.backgroundColor = UIColor.red
             } else {
             btn.backgroundColor = UIColor.blue
@@ -224,6 +224,17 @@ class SecondViewController: UIViewController {
         self.view.addSubview(btn)
         addTarget(btn: btn, dayInt: dayInt) // calls add event with button argument - d
         setup(dayInt: dayInt + 1, offset: offset + 57, numberOfDays: numberOfDays )
+    }
+    
+    func hasEvent(stringYear:String) -> Bool {
+        let homeView = self.storyboard?.instantiateViewController(withIdentifier: "eventListView") as! ThirdViewController
+        var eventforDay = homeView.getEventDay(n:stringYear)
+        var date  = homeView.strToDate(dayString: stringYear)
+        eventforDay = homeView.filter(eventsFull: eventforDay, day: date)
+        if(eventforDay.count > 0){
+            return true
+        }
+        return false
     }
     
     @objc func addTarget(btn: UIButton, dayInt: Int) { // unfortunatly when adding a target to a button you can not pass an argument so i have to use if's to see what the target of the button should be - d

@@ -20,6 +20,7 @@ class ThirdViewController: UIViewController {
     func strToDate(dayString : String) -> Date{// creates date obj from a string
         let dateFormatterGet = DateFormatter()
         dateFormatterGet.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        print(dayString)
         let date: Date = dateFormatterGet.date(from: dayString+" 00:00:00")!
         return date
     }
