@@ -53,8 +53,7 @@ class ThirdViewController: UIViewController {
     func filter(eventsFull: Array<[NSManagedObject]>, day : Date) -> Array<[NSManagedObject]> {
         var eventsFull = eventsFull
         
-        print((events2[0][0].value(forKey: "startDate") as! Date) < day)
-        print((events2[0][0].value(forKey: "startDate") as! Date) < day)
+      
         var i : Int = 0
         var e = eventsFull
         for a in eventsFull{
@@ -229,7 +228,7 @@ class ThirdViewController: UIViewController {
     }
     
     @objc func delete0(delete: Int){
-        deleteEventByName(name: events2[scrollCount * 12 + 0][0].value(forKey: "name") as! String)
+        deleteEventByName(name: events2[scrollCount * 12 + 0][0] )
         events2.remove(at: scrollCount * 12 + 0 )
         print(events2.count)
         if(events2.count == 0){
@@ -251,77 +250,77 @@ class ThirdViewController: UIViewController {
     }
     
     @objc func delete1(delete: Int){
-        deleteEventByName(name: events2[scrollCount * 12 + 1][0].value(forKey: "name") as! String)
+        deleteEventByName(name: events2[scrollCount * 12 + 1][0])
         events2.remove(at: scrollCount * 12 + 1 )
         setup(startI: scrollCount * 12)
         print("del1")
     }
     
     @objc func delete2(delete: Int){
-        deleteEventByName(name: events2[scrollCount * 12 + 2][0].value(forKey: "name") as! String)
+        deleteEventByName(name: events2[scrollCount * 12 + 2][0])
         events2.remove(at: scrollCount * 12 + 2 )
         setup(startI: scrollCount * 12)
         print("del2")
     }
     
     @objc func delete3(delete: Int){
-        deleteEventByName(name: events2[scrollCount * 12 + 3][0].value(forKey: "name") as! String)
+        deleteEventByName(name: events2[scrollCount * 12 + 3][0])
         events2.remove(at: scrollCount * 12 + 3 )
         setup(startI: scrollCount * 12)
         print("del3")
     }
     
     @objc func delete4(delete: Int){
-        deleteEventByName(name: events2[scrollCount * 12 + 4][0].value(forKey: "name") as! String)
+        deleteEventByName(name: events2[scrollCount * 12 + 4][0])
         events2.remove(at: scrollCount * 12 + 4 )
         setup(startI: scrollCount * 12)
         print("del4")
     }
     
     @objc func delete5(delete: Int){
-        deleteEventByName(name: events2[scrollCount * 12 + 5][0].value(forKey: "name") as! String)
+        deleteEventByName(name: events2[scrollCount * 12 + 5][0])
         events2.remove(at: scrollCount * 12 + 5 )
         setup(startI: scrollCount * 12)
         print("del5")
     }
     
     @objc func delete6(delete: Int){
-        deleteEventByName(name: events2[scrollCount * 12 + 6][0].value(forKey: "name") as! String)
+        deleteEventByName(name: events2[scrollCount * 12 + 6][0])
         events2.remove(at: scrollCount * 12 + 6 )
         setup(startI: scrollCount * 12)
         print("del6")
     }
     
     @objc func delete7(delete: Int){
-        deleteEventByName(name: events2[scrollCount * 12 + 7][0].value(forKey: "name") as! String)
+        deleteEventByName(name: events2[scrollCount * 12 + 7][0])
         events2.remove(at: scrollCount * 12 + 7 )
         setup(startI: scrollCount * 12)
         print("del7")
     }
     
     @objc func delete8(delete: Int){
-        deleteEventByName(name: events2[scrollCount * 12 + 8][0].value(forKey: "name") as! String)
+        deleteEventByName(name: events2[scrollCount * 12 + 8][0])
         events2.remove(at: scrollCount * 12 + 8 )
         setup(startI: scrollCount * 12)
         print("del8")
     }
     
     @objc func delete9(delete: Int){
-        deleteEventByName(name: events2[scrollCount * 12 + 9][0].value(forKey: "name") as! String)
+        deleteEventByName(name: events2[scrollCount * 12 + 9][0])
         events2.remove(at: scrollCount * 12 + 9 )
         setup(startI: scrollCount * 12)
         print("del9")
     }
     
     @objc func delete10(delete: Int){
-        deleteEventByName(name: events2[scrollCount * 12 + 10][0].value(forKey: "name") as! String)
+        deleteEventByName(name: events2[scrollCount * 12 + 10][0])
         events2.remove(at: scrollCount * 12 + 10 )
         setup(startI: scrollCount * 12)
         print("del10")
         
     }
     @objc func delete11(delete: Int){
-        deleteEventByName(name: events2[scrollCount * 12 + 11][0].value(forKey: "name") as! String)
+        deleteEventByName(name: events2[scrollCount * 12 + 11][0])
         events2.remove(at: scrollCount * 12 + 11 )
         setup(startI: scrollCount * 12)
         print("del11")
