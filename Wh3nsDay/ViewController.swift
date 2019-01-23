@@ -26,7 +26,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
   
     @IBAction func donePressed(_ sender: Any) { // when the done button is pressed this runs-dane
         if(textField.text == ""){ // makes sure there is an event name
-            mustHaveNameError(label: "MUST INCLUE EVENT NAME") // runs method that flashes red and yellow in the text field so u see it and changes the "Event Name Label" to " MUST HAVE NAME"- dane
+            mustHaveNameError(label: "MUST INCLUED EVENT NAME") // runs method that flashes red and yellow in the text field so u see it and changes the "Event Name Label" to " MUST HAVE NAME"- dane
             return // stops method
         }
         if(eventNameInput.count > 16){
