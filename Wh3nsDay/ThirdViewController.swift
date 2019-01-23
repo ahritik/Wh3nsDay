@@ -79,8 +79,8 @@ class ThirdViewController: UIViewController {
         }else{
             endI = events2.count % 12 + scrollCount * 12 - 1
         }
-        print(endI)
-        
+        print("endI = " + String(endI))
+        print(startI)
         view.subviews.forEach({ $0.removeFromSuperview() })
         setBackButton()
         setDateLabel()
@@ -102,6 +102,7 @@ class ThirdViewController: UIViewController {
             eventLabel.center.x = self.view.center.x
             print(i)
             print(events2.count)
+            print(events2[i][0])
             eventLabel.text = String(events2[i][0].value(forKey: "name") as! String)
             eventLabel.font = UIFont(name: "HelveticaNeue-Bold", size: 38)
             eventLabel.textColor = UIColor.blue
