@@ -25,13 +25,21 @@ class ThirdViewController: UIViewController {
         }
     }
     
+    func strToDate(dayString : String) -> Date{
+        let dateFormatterGet = DateFormatter()
+        dateFormatterGet.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        let date: Date = dateFormatterGet.date(from: dayString+" 00:00:00")!
+        return date
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         print(currentDateInString)
         //addup(e: 21)
        // scrollNumber = Int(events2 / 12)
-       events2 = getEventDay(n: currentDateInString)
-        filter()
+        events2 = getEventDay(n: currentDateInString)
+        
+        events2 = filter(eventsFull:events2, day: strToDate(dayString : currentDateInString))
         //print(events[0])
         // Do any additional setup after loading the view, typically from a nib.
         if(events2.count > 11){
@@ -41,8 +49,16 @@ class ThirdViewController: UIViewController {
         // setup(startI: 12, endI: 23)
     }
     
-    func filter(){
-        
+    func filter(eventsFull: Array<[NSManagedObject]>, day : Date) -> Array<[NSManagedObject]> {
+        var i : Int = 0
+        for a in events{
+            if ((((a[0].value(forKey: "startDate")) as! Date) < day) || (((a[0].value(forKey: "startDate")) as! Date) > day.addingTimeInterval(86400))){
+                events.remove(at: i)
+                i-=1
+            }
+            i+=1
+        }
+        return eventsFull
     }
     
     @IBAction func swipeUp(_ sender: Any) {
